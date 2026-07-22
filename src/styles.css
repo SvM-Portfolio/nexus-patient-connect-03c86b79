@@ -185,17 +185,17 @@
     color: var(--color-foreground);
     background-color: var(--color-background);
     background-image:
-      radial-gradient(1200px 700px at 8% -10%, rgba(186, 213, 240, 0.45), transparent 60%),
-      radial-gradient(1000px 600px at 100% 0%, rgba(214, 226, 240, 0.45), transparent 60%),
-      radial-gradient(900px 700px at 50% 110%, rgba(220, 226, 240, 0.38), transparent 60%);
+      radial-gradient(1200px 700px at 8% -10%, oklch(0.5544 0.0408 257.43 / 0.18), transparent 60%),
+      radial-gradient(1000px 600px at 100% 0%, oklch(0.6959 0.1491 162.51 / 0.08), transparent 60%),
+      radial-gradient(900px 700px at 50% 110%, oklch(0.5544 0.0408 257.43 / 0.12), transparent 60%);
     background-attachment: fixed;
   }
 
   .dark body {
-    background-color: oklch(0.16 0.02 260);
+    background-color: oklch(0.1288 0.0406 264.70);
     background-image:
-      radial-gradient(1200px 700px at 8% -10%, rgba(60, 90, 140, 0.35), transparent 60%),
-      radial-gradient(1000px 600px at 100% 0%, rgba(80, 60, 140, 0.28), transparent 60%);
+      radial-gradient(1200px 700px at 8% -10%, oklch(0.7729 0.1535 163.25 / 0.15), transparent 60%),
+      radial-gradient(1000px 600px at 100% 0%, oklch(0.4455 0.0375 257.29 / 0.25), transparent 60%);
   }
 
   body,
