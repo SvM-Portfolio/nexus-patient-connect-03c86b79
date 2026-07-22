@@ -339,9 +339,10 @@ function PatientsPage() {
                             size="sm"
                             asChild
                             aria-label={`View ${displayName(p)}`}
+                            className="text-foreground"
                           >
                             <Link to="/patients/$id" params={{ id: p.id! }}>
-                              <Eye className="mr-1 h-4 w-4" /> View Record Button
+                              <Eye className="mr-1 h-4 w-4" /> View Record
                             </Link>
                           </Button>
                         </TableCell>
