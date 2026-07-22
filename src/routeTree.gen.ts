@@ -9,14 +9,14 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
+import { Route as PatientsIndexRouteImport } from './routes/patients.index'
 import { Route as PatientsNewRouteImport } from './routes/patients.new'
 import { Route as PatientsIdRouteImport } from './routes/patients.$id'
 import { Route as ApiFhirSplatRouteImport } from './routes/api/fhir.$'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const PatientsIndexRoute = PatientsIndexRouteImport.update({
+  id: '/patients/',
+  path: '/patients/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PatientsNewRoute = PatientsNewRouteImport.update({
@@ -36,46 +36,51 @@ const ApiFhirSplatRoute = ApiFhirSplatRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
   '/patients/$id': typeof PatientsIdRoute
   '/patients/new': typeof PatientsNewRoute
+  '/patients/': typeof PatientsIndexRoute
   '/api/fhir/$': typeof ApiFhirSplatRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
   '/patients/$id': typeof PatientsIdRoute
   '/patients/new': typeof PatientsNewRoute
+  '/patients': typeof PatientsIndexRoute
   '/api/fhir/$': typeof ApiFhirSplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
   '/patients/$id': typeof PatientsIdRoute
   '/patients/new': typeof PatientsNewRoute
+  '/patients/': typeof PatientsIndexRoute
   '/api/fhir/$': typeof ApiFhirSplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/patients/$id' | '/patients/new' | '/api/fhir/$'
+  fullPaths: '/patients/$id' | '/patients/new' | '/patients/' | '/api/fhir/$'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/patients/$id' | '/patients/new' | '/api/fhir/$'
-  id: '__root__' | '/' | '/patients/$id' | '/patients/new' | '/api/fhir/$'
+  to: '/patients/$id' | '/patients/new' | '/patients' | '/api/fhir/$'
+  id:
+    | '__root__'
+    | '/patients/$id'
+    | '/patients/new'
+    | '/patients/'
+    | '/api/fhir/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
   PatientsIdRoute: typeof PatientsIdRoute
   PatientsNewRoute: typeof PatientsNewRoute
+  PatientsIndexRoute: typeof PatientsIndexRoute
   ApiFhirSplatRoute: typeof ApiFhirSplatRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/patients/': {
+      id: '/patients/'
+      path: '/patients'
+      fullPath: '/patients/'
+      preLoaderRoute: typeof PatientsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/patients/new': {
@@ -103,9 +108,9 @@ declare module '@tanstack/react-router' {
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
   PatientsIdRoute: PatientsIdRoute,
   PatientsNewRoute: PatientsNewRoute,
+  PatientsIndexRoute: PatientsIndexRoute,
   ApiFhirSplatRoute: ApiFhirSplatRoute,
 }
 export const routeTree = rootRouteImport
