@@ -379,6 +379,7 @@ function PatientsPage() {
                       </TableHead>
                       <TableHead scope="col">Gender</TableHead>
                       <TableHead scope="col">Date of birth</TableHead>
+                      <TableHead scope="col">Last visited</TableHead>
                       <TableHead scope="col" className="text-right">Actions</TableHead>
                     </TableRow>
                   </TableHeader>
