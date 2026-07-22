@@ -397,6 +397,20 @@ function PatientsPage() {
                           <GenderBadge gender={p.gender} />
                         </TableCell>
                         <TableCell>{p.birthDate || "—"}</TableCell>
+                        <TableCell className="whitespace-nowrap text-muted-foreground">
+                          {(() => {
+                            const ts = p.id ? visitedAtById.get(p.id) : undefined;
+                            if (!ts) return "—";
+                            const d = new Date(ts);
+                            return (
+                              <time dateTime={d.toISOString()} title={d.toLocaleString()}>
+                                {d.toLocaleDateString(undefined, { month: "short", day: "numeric" })}
+                                {" · "}
+                                {d.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" })}
+                              </time>
+                            );
+                          })()}
+                        </TableCell>
                         <TableCell className="text-right">
                           <Button
                             variant="outline"
