@@ -765,7 +765,7 @@ export function PatientDetail({ patientId }: Props) {
                   return (
                     <div key={n.id} className="rounded-md border p-3 text-sm">
                       {needsReview && (
-                        <div className="mb-2 rounded bg-amber-500/10 px-2 py-1 text-xs font-medium text-amber-800 dark:text-amber-200">
+                        <div className="mb-2 rounded bg-[color:var(--accent-conditions)]/10 px-2 py-1 text-xs font-medium text-[color:var(--accent-conditions)]">
                           ⚠ Needs Review
                         </div>
                       )}
