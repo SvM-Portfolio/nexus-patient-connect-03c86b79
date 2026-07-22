@@ -46,7 +46,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/patients/")({
   head: () => ({
     meta: [
       { title: "Nexus Pro — Patient Management" },
