@@ -18,13 +18,9 @@ interface Communication {
 
 const CATEGORIES = [
   { key: "notification", label: "New messages" },
-  { key: "instruction", label: "Care coordination" },
   { key: "reminder", label: "Active conversations" },
   { key: "alert", label: "Phone messages" },
-  { key: "task", label: "Assigned actions" },
   { key: "direct", label: "Direct messages" },
-  { key: "patient-action", label: "Patient action management" },
-  { key: "care-coordination", label: "Care coordination mgmt" },
 ];
 
 export function MessagesPanel() {
