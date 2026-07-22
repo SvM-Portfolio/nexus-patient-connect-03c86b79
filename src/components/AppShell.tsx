@@ -79,7 +79,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               title="Patient Records"
             >
               <Link to="/patients">
-                <FileText className="h-4 w-4" />
+                <Folder className="h-4 w-4" />
                 <span className="hidden sm:inline">Patient Records</span>
               </Link>
             </Button>
