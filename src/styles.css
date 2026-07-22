@@ -183,11 +183,11 @@
 
   body {
     color: var(--color-foreground);
-    background-color: #f8fafc;
+    background-color: var(--color-background);
     background-image:
-      radial-gradient(1200px 700px at 8% -10%, rgba(186, 213, 240, 0.35), transparent 60%),
-      radial-gradient(1000px 600px at 100% 0%, rgba(214, 226, 240, 0.35), transparent 60%),
-      radial-gradient(900px 700px at 50% 110%, rgba(220, 226, 240, 0.28), transparent 60%);
+      radial-gradient(1200px 700px at 8% -10%, rgba(186, 213, 240, 0.45), transparent 60%),
+      radial-gradient(1000px 600px at 100% 0%, rgba(214, 226, 240, 0.45), transparent 60%),
+      radial-gradient(900px 700px at 50% 110%, rgba(220, 226, 240, 0.38), transparent 60%);
     background-attachment: fixed;
   }
 
