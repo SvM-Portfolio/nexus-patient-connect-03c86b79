@@ -174,28 +174,52 @@
     border-color: var(--color-border);
   }
 
+  html {
+    font-size: 16.5px;
+  }
+
+  @media (min-width: 768px) {
+    html {
+      font-size: 17px;
+    }
+  }
+
   html,
   body {
     font-feature-settings: "cv11", "ss01", "ss03";
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    font-weight: 450;
+    letter-spacing: -0.005em;
   }
 
   body {
     color: var(--color-foreground);
     background-color: var(--color-background);
     background-image:
-      radial-gradient(1200px 700px at 8% -10%, oklch(0.5544 0.0408 257.43 / 0.18), transparent 60%),
-      radial-gradient(1000px 600px at 100% 0%, oklch(0.6959 0.1491 162.51 / 0.08), transparent 60%),
-      radial-gradient(900px 700px at 50% 110%, oklch(0.5544 0.0408 257.43 / 0.12), transparent 60%);
+      radial-gradient(1200px 700px at 8% -10%, oklch(0.72 0.16 220 / 0.28), transparent 60%),
+      radial-gradient(1000px 600px at 100% 0%, oklch(0.72 0.17 165 / 0.22), transparent 60%),
+      radial-gradient(900px 700px at 50% 110%, oklch(0.75 0.15 320 / 0.20), transparent 60%),
+      radial-gradient(700px 500px at 90% 90%, oklch(0.80 0.16 80 / 0.18), transparent 60%);
     background-attachment: fixed;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 650;
+    letter-spacing: -0.02em;
+    color: var(--color-foreground);
+  }
+
+  /* Brighter, more visible icons across the app */
+  svg {
+    stroke-width: 2.15;
   }
 
   .dark body {
     background-color: oklch(0.1288 0.0406 264.70);
     background-image:
-      radial-gradient(1200px 700px at 8% -10%, oklch(0.7729 0.1535 163.25 / 0.15), transparent 60%),
-      radial-gradient(1000px 600px at 100% 0%, oklch(0.4455 0.0375 257.29 / 0.25), transparent 60%);
+      radial-gradient(1200px 700px at 8% -10%, oklch(0.7729 0.1535 163.25 / 0.18), transparent 60%),
+      radial-gradient(1000px 600px at 100% 0%, oklch(0.60 0.20 265 / 0.22), transparent 60%);
   }
 
   body,
@@ -211,20 +235,20 @@
 }
 
 @utility glass-surface {
-  background-color: oklch(1 0 0 / 0.92);
-  backdrop-filter: saturate(140%) blur(18px);
-  border: 1px solid oklch(0.5544 0.0408 257.43 / 0.22);
+  background-color: oklch(1 0 0 / 0.94);
+  backdrop-filter: saturate(150%) blur(20px);
+  border: 1px solid oklch(0.72 0.05 230 / 0.35);
   box-shadow:
-    0 1px 0 oklch(1 0 0 / 0.85) inset,
-    0 8px 30px oklch(0.2077 0.0398 265.76 / 0.05);
+    0 1px 0 oklch(1 0 0 / 0.95) inset,
+    0 10px 34px oklch(0.60 0.18 235 / 0.08);
 }
 
 .dark .glass-surface,
 .dark [class~="glass-surface"] {
-  background-color: oklch(0.2077 0.0398 265.76 / 0.75);
-  border-color: oklch(0.5544 0.0408 257.43 / 0.12);
+  background-color: oklch(0.2077 0.0398 265.76 / 0.78);
+  border-color: oklch(0.5544 0.0408 257.43 / 0.18);
   box-shadow:
-    0 1px 0 oklch(1 0 0 / 0.03) inset,
+    0 1px 0 oklch(1 0 0 / 0.04) inset,
     0 8px 30px oklch(0 0 0 / 0.35);
 }
 
