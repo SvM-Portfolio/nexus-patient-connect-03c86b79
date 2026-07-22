@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -44,6 +44,7 @@ import {
 import { GenderBadge } from "@/components/GenderBadge";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { readRecentPatients, type RecentPatient } from "@/lib/recent-patients";
 
 
 export const Route = createFileRoute("/patients/")({
@@ -158,7 +159,31 @@ function PatientsPage() {
     setOffset(0);
   };
 
-  const patients = data?.patients ?? [];
+  // Recent visits (from local storage) — used to surface last-visited timestamp
+  // and float recently-visited patients to the top of the current page.
+  const [recent, setRecent] = useState<RecentPatient[]>([]);
+  useEffect(() => {
+    setRecent(readRecentPatients());
+    const onChange = () => setRecent(readRecentPatients());
+    window.addEventListener("nexus.recentPatients.changed", onChange);
+    return () => window.removeEventListener("nexus.recentPatients.changed", onChange);
+  }, []);
+  const visitedAtById = useMemo(() => {
+    const m = new Map<string, number>();
+    for (const r of recent) m.set(r.id, r.visitedAt);
+    return m;
+  }, [recent]);
+
+  const rawPatients = data?.patients ?? [];
+  const patients = useMemo(() => {
+    const arr = [...rawPatients];
+    arr.sort((a, b) => {
+      const av = a.id ? visitedAtById.get(a.id) ?? 0 : 0;
+      const bv = b.id ? visitedAtById.get(b.id) ?? 0 : 0;
+      return bv - av;
+    });
+    return arr;
+  }, [rawPatients, visitedAtById]);
   const total = data?.total ?? 0;
   const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
   const currentPage = Math.floor(offset / PAGE_SIZE) + 1;
@@ -354,6 +379,7 @@ function PatientsPage() {
                       </TableHead>
                       <TableHead scope="col">Gender</TableHead>
                       <TableHead scope="col">Date of birth</TableHead>
+                      <TableHead scope="col">Last visited</TableHead>
                       <TableHead scope="col" className="text-right">Actions</TableHead>
                     </TableRow>
                   </TableHeader>
@@ -371,6 +397,20 @@ function PatientsPage() {
                           <GenderBadge gender={p.gender} />
                         </TableCell>
                         <TableCell>{p.birthDate || "—"}</TableCell>
+                        <TableCell className="whitespace-nowrap text-muted-foreground">
+                          {(() => {
+                            const ts = p.id ? visitedAtById.get(p.id) : undefined;
+                            if (!ts) return "—";
+                            const d = new Date(ts);
+                            return (
+                              <time dateTime={d.toISOString()} title={d.toLocaleString()}>
+                                {d.toLocaleDateString(undefined, { month: "short", day: "numeric" })}
+                                {" · "}
+                                {d.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" })}
+                              </time>
+                            );
+                          })()}
+                        </TableCell>
                         <TableCell className="text-right">
                           <Button
                             variant="outline"
