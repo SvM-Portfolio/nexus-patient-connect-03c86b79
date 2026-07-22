@@ -175,14 +175,20 @@ function PatientsPage() {
   }, [recent]);
 
   const rawPatients = data?.patients ?? [];
+  const parseTs = (s?: string) => {
+    if (!s) return 0;
+    const t = Date.parse(s);
+    return Number.isFinite(t) ? t : 0;
+  };
+  const tsFor = (p: (typeof rawPatients)[number]) => {
+    const visited = p.id ? visitedAtById.get(p.id) ?? 0 : 0;
+    return Math.max(visited, parseTs(p.meta?.lastUpdated));
+  };
   const patients = useMemo(() => {
     const arr = [...rawPatients];
-    arr.sort((a, b) => {
-      const av = a.id ? visitedAtById.get(a.id) ?? 0 : 0;
-      const bv = b.id ? visitedAtById.get(b.id) ?? 0 : 0;
-      return bv - av;
-    });
+    arr.sort((a, b) => tsFor(b) - tsFor(a));
     return arr;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rawPatients, visitedAtById]);
   const total = data?.total ?? 0;
   const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
@@ -379,7 +385,7 @@ function PatientsPage() {
                       </TableHead>
                       <TableHead scope="col">Gender</TableHead>
                       <TableHead scope="col">Date of birth</TableHead>
-                      <TableHead scope="col">Last visited</TableHead>
+                      <TableHead scope="col">Last updated</TableHead>
                       <TableHead scope="col" className="text-right">Actions</TableHead>
                     </TableRow>
                   </TableHeader>
@@ -399,12 +405,14 @@ function PatientsPage() {
                         <TableCell>{p.birthDate || "—"}</TableCell>
                         <TableCell className="whitespace-nowrap text-muted-foreground">
                           {(() => {
-                            const ts = p.id ? visitedAtById.get(p.id) : undefined;
+                            const ts = tsFor(p);
                             if (!ts) return "—";
                             const d = new Date(ts);
+                            const visited = p.id ? visitedAtById.get(p.id) ?? 0 : 0;
+                            const source = visited && visited >= parseTs(p.meta?.lastUpdated) ? "Visited" : "Updated";
                             return (
-                              <time dateTime={d.toISOString()} title={d.toLocaleString()}>
-                                {d.toLocaleDateString(undefined, { month: "short", day: "numeric" })}
+                              <time dateTime={d.toISOString()} title={`${source} ${d.toLocaleString()}`}>
+                                {d.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" })}
                                 {" · "}
                                 {d.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" })}
                               </time>
