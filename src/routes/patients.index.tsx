@@ -159,7 +159,31 @@ function PatientsPage() {
     setOffset(0);
   };
 
-  const patients = data?.patients ?? [];
+  // Recent visits (from local storage) — used to surface last-visited timestamp
+  // and float recently-visited patients to the top of the current page.
+  const [recent, setRecent] = useState<RecentPatient[]>([]);
+  useEffect(() => {
+    setRecent(readRecentPatients());
+    const onChange = () => setRecent(readRecentPatients());
+    window.addEventListener("nexus.recentPatients.changed", onChange);
+    return () => window.removeEventListener("nexus.recentPatients.changed", onChange);
+  }, []);
+  const visitedAtById = useMemo(() => {
+    const m = new Map<string, number>();
+    for (const r of recent) m.set(r.id, r.visitedAt);
+    return m;
+  }, [recent]);
+
+  const rawPatients = data?.patients ?? [];
+  const patients = useMemo(() => {
+    const arr = [...rawPatients];
+    arr.sort((a, b) => {
+      const av = a.id ? visitedAtById.get(a.id) ?? 0 : 0;
+      const bv = b.id ? visitedAtById.get(b.id) ?? 0 : 0;
+      return bv - av;
+    });
+    return arr;
+  }, [rawPatients, visitedAtById]);
   const total = data?.total ?? 0;
   const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
   const currentPage = Math.floor(offset / PAGE_SIZE) + 1;
