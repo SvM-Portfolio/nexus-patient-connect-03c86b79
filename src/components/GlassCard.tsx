@@ -41,27 +41,27 @@ export const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(
       <div
         ref={ref}
         className={cn(
-          "relative overflow-hidden rounded-2xl border border-border/60",
-          "bg-card/70 backdrop-blur-xl",
-          "shadow-[0_1px_2px_rgba(0,0,0,0.03),0_8px_32px_-12px_rgba(15,23,42,0.12)]",
-          "dark:bg-card/50 dark:shadow-[0_1px_2px_rgba(0,0,0,0.4),0_8px_32px_-12px_rgba(0,0,0,0.6)]",
-          "transition-shadow hover:shadow-[0_1px_2px_rgba(0,0,0,0.04),0_16px_40px_-12px_rgba(15,23,42,0.18)]",
+          "glass-surface relative overflow-hidden rounded-2xl",
+          "transition-[transform,box-shadow] duration-200 ease-out",
+          "hover:shadow-[0_1px_0_rgba(255,255,255,0.6)_inset,0_14px_44px_rgba(30,60,90,0.08)]",
           accent &&
-            "before:absolute before:left-0 before:top-0 before:h-full before:w-[3px] before:content-['']",
+            "before:absolute before:left-0 before:top-0 before:h-full before:w-[2px] before:opacity-80 before:content-['']",
           accent && accentClass[accent],
           className,
         )}
         {...rest}
       >
         {(title || action) && (
-          <div className={cn("flex items-center justify-between gap-3", padded ? "px-5 pt-5" : "")}>
+          <div className={cn("flex items-center justify-between gap-3", padded ? "px-6 pt-5" : "")}>
             {title && (
-              <div className="text-sm font-semibold tracking-tight text-foreground">{title}</div>
+              <div className="text-[13px] font-semibold tracking-tight text-foreground/90">
+                {title}
+              </div>
             )}
             {action && <div className="flex items-center gap-1">{action}</div>}
           </div>
         )}
-        <div className={cn(padded ? "p-5" : "")}>{children}</div>
+        <div className={cn(padded ? "px-6 pb-6 pt-4" : "")}>{children}</div>
       </div>
     );
   },
