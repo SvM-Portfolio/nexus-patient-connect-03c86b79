@@ -44,6 +44,8 @@ import {
 import { GenderBadge } from "@/components/GenderBadge";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { readRecentPatients } from "@/lib/recent-patients";
+import { useEffect, useState as useReactState } from "react";
 
 
 export const Route = createFileRoute("/patients/")({
