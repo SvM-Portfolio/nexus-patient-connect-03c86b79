@@ -4,7 +4,7 @@ import {
   Home,
   Activity,
   ChevronRight,
-  FileText,
+  Folder,
 } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 import { GlobalSearch } from "./GlobalSearch";
