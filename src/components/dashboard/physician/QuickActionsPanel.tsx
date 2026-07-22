@@ -5,10 +5,8 @@ import {
   Search,
   FlaskConical,
   ScanLine,
-  Scissors,
   Pill,
   StickyNote,
-  Phone,
   Share2,
   Zap,
 } from "lucide-react";
@@ -27,10 +25,8 @@ const actions: Action[] = [
   { kind: "search", label: "Search patient", icon: Search, color: "text-accent-summary" },
   { kind: "dialog", label: "Order laboratory test", icon: FlaskConical, action: "lab", color: "text-accent-observations" },
   { kind: "dialog", label: "Order imaging", icon: ScanLine, action: "lab", color: "text-accent-encounters" },
-  { kind: "todo", label: "Order procedure", icon: Scissors, color: "text-accent-procedures" },
   { kind: "dialog", label: "Prescribe medication", icon: Pill, action: "medication", color: "text-accent-medications" },
   { kind: "dialog", label: "Add clinical note", icon: StickyNote, action: "note", color: "text-accent-notes" },
-  { kind: "todo", label: "Telephone encounter", icon: Phone, color: "text-accent-info" },
   { kind: "todo", label: "Create referral", icon: Share2, color: "text-accent-diagnoses" },
 ];
 
