@@ -51,7 +51,11 @@ function PhysicianDashboard() {
 
       <TodaysSummary />
 
-      <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-3">
+      <div className="mt-6">
+        <QuickActionsPanel />
+      </div>
+
+      <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-3">
         <MessagesPanel />
         <LaboratoryOrders />
         <ClinicalAlerts />
@@ -68,9 +72,9 @@ function PhysicianDashboard() {
 
       <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-3">
         <div className="lg:col-span-2">
-          <QuickActionsPanel />
+          <ActivityPanel />
         </div>
-        <ActivityPanel />
+        <div className="flex flex-col gap-4" />
       </div>
     </div>
   );
