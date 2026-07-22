@@ -37,16 +37,16 @@ export function AppShell({ children }: { children: ReactNode }) {
     router.state.location.pathname.startsWith("/dashboard/");
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/30">
+    <div className="min-h-screen">
       <Toaster />
       {/* Ambient glow */}
       <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-        <div className="absolute -left-32 top-0 h-96 w-96 rounded-full bg-primary/5 blur-3xl" />
-        <div className="absolute right-0 top-1/3 h-96 w-96 rounded-full bg-accent-info/10 blur-3xl" />
+        <div className="absolute -left-40 -top-24 h-[28rem] w-[28rem] rounded-full bg-[color:var(--accent-info)]/15 blur-3xl" />
+        <div className="absolute right-0 top-1/3 h-[26rem] w-[26rem] rounded-full bg-[color:var(--accent-medications)]/12 blur-3xl" />
       </div>
 
-      <header className="sticky top-0 z-40 border-b border-border/50 bg-background/70 backdrop-blur-xl">
-        <div className="mx-auto flex h-14 max-w-[1600px] items-center gap-3 px-4 md:px-6">
+      <header className="sticky top-0 z-40 border-b border-white/40 bg-white/55 backdrop-blur-2xl dark:border-white/5 dark:bg-black/30">
+        <div className="mx-auto flex h-14 max-w-[1600px] items-center gap-3 px-4 md:px-8">
           {/* Left */}
           <div className="flex items-center gap-2">
             <Link
