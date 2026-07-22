@@ -210,10 +210,53 @@
     color: var(--color-foreground);
   }
 
-  /* Brighter, more visible icons across the app */
+  /* Crisp, consistently visible icons across the app */
   svg {
-    stroke-width: 2.15;
+    stroke-width: 2.25;
+    vector-effect: non-scaling-stroke;
   }
+
+  /* Default icon size inside interactive surfaces */
+  button svg,
+  a svg,
+  [role="tab"] svg,
+  [role="menuitem"] svg,
+  [data-slot="button"] svg,
+  [data-slot="tabs-trigger"] svg,
+  [data-slot="dropdown-menu-item"] svg,
+  [data-slot="select-trigger"] svg {
+    width: 1.125rem;
+    height: 1.125rem;
+    stroke-width: 2.25;
+    flex-shrink: 0;
+  }
+
+  /* Slightly larger, bolder icons for tab triggers so labels + glyphs stay legible on mobile */
+  [role="tab"] svg,
+  [data-slot="tabs-trigger"] svg {
+    width: 1.15rem;
+    height: 1.15rem;
+    stroke-width: 2.4;
+  }
+
+  /* Table row action icons — compact but crisp */
+  td svg,
+  th svg,
+  [data-slot="table"] button svg,
+  [data-slot="table-cell"] svg {
+    width: 1rem;
+    height: 1rem;
+    stroke-width: 2.4;
+  }
+
+  /* Icon-only ghost/outline buttons (header, popovers) */
+  button[data-slot="button"]:where(.size-icon, [class*="size-icon"]) svg,
+  button:where([aria-label]):not(:has(> span:not(.sr-only))) svg {
+    width: 1.2rem;
+    height: 1.2rem;
+    stroke-width: 2.3;
+  }
+
 
   .dark body {
     background-color: oklch(0.1288 0.0406 264.70);
