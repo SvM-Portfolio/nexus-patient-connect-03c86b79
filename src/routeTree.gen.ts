@@ -10,13 +10,21 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PatientsIndexRouteImport } from './routes/patients.index'
 import { Route as PatientsNewRouteImport } from './routes/patients.new'
 import { Route as PatientsIdRouteImport } from './routes/patients.$id'
+import { Route as DashboardPhysicianRouteImport } from './routes/dashboard.physician'
+import { Route as DashboardFrontOfficeRouteImport } from './routes/dashboard.front-office'
 import { Route as ApiFhirSplatRouteImport } from './routes/api/fhir.$'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PatientsIndexRoute = PatientsIndexRouteImport.update({
+  id: '/patients/',
+  path: '/patients/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PatientsNewRoute = PatientsNewRouteImport.update({
@@ -29,6 +37,16 @@ const PatientsIdRoute = PatientsIdRouteImport.update({
   path: '/patients/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardPhysicianRoute = DashboardPhysicianRouteImport.update({
+  id: '/dashboard/physician',
+  path: '/dashboard/physician',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardFrontOfficeRoute = DashboardFrontOfficeRouteImport.update({
+  id: '/dashboard/front-office',
+  path: '/dashboard/front-office',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiFhirSplatRoute = ApiFhirSplatRouteImport.update({
   id: '/api/fhir/$',
   path: '/api/fhir/$',
@@ -37,35 +55,69 @@ const ApiFhirSplatRoute = ApiFhirSplatRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/dashboard/front-office': typeof DashboardFrontOfficeRoute
+  '/dashboard/physician': typeof DashboardPhysicianRoute
   '/patients/$id': typeof PatientsIdRoute
   '/patients/new': typeof PatientsNewRoute
+  '/patients/': typeof PatientsIndexRoute
   '/api/fhir/$': typeof ApiFhirSplatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/dashboard/front-office': typeof DashboardFrontOfficeRoute
+  '/dashboard/physician': typeof DashboardPhysicianRoute
   '/patients/$id': typeof PatientsIdRoute
   '/patients/new': typeof PatientsNewRoute
+  '/patients': typeof PatientsIndexRoute
   '/api/fhir/$': typeof ApiFhirSplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/dashboard/front-office': typeof DashboardFrontOfficeRoute
+  '/dashboard/physician': typeof DashboardPhysicianRoute
   '/patients/$id': typeof PatientsIdRoute
   '/patients/new': typeof PatientsNewRoute
+  '/patients/': typeof PatientsIndexRoute
   '/api/fhir/$': typeof ApiFhirSplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/patients/$id' | '/patients/new' | '/api/fhir/$'
+  fullPaths:
+    | '/'
+    | '/dashboard/front-office'
+    | '/dashboard/physician'
+    | '/patients/$id'
+    | '/patients/new'
+    | '/patients/'
+    | '/api/fhir/$'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/patients/$id' | '/patients/new' | '/api/fhir/$'
-  id: '__root__' | '/' | '/patients/$id' | '/patients/new' | '/api/fhir/$'
+  to:
+    | '/'
+    | '/dashboard/front-office'
+    | '/dashboard/physician'
+    | '/patients/$id'
+    | '/patients/new'
+    | '/patients'
+    | '/api/fhir/$'
+  id:
+    | '__root__'
+    | '/'
+    | '/dashboard/front-office'
+    | '/dashboard/physician'
+    | '/patients/$id'
+    | '/patients/new'
+    | '/patients/'
+    | '/api/fhir/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DashboardFrontOfficeRoute: typeof DashboardFrontOfficeRoute
+  DashboardPhysicianRoute: typeof DashboardPhysicianRoute
   PatientsIdRoute: typeof PatientsIdRoute
   PatientsNewRoute: typeof PatientsNewRoute
+  PatientsIndexRoute: typeof PatientsIndexRoute
   ApiFhirSplatRoute: typeof ApiFhirSplatRoute
 }
 
@@ -76,6 +128,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/patients/': {
+      id: '/patients/'
+      path: '/patients'
+      fullPath: '/patients/'
+      preLoaderRoute: typeof PatientsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/patients/new': {
@@ -92,6 +151,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PatientsIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard/physician': {
+      id: '/dashboard/physician'
+      path: '/dashboard/physician'
+      fullPath: '/dashboard/physician'
+      preLoaderRoute: typeof DashboardPhysicianRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/front-office': {
+      id: '/dashboard/front-office'
+      path: '/dashboard/front-office'
+      fullPath: '/dashboard/front-office'
+      preLoaderRoute: typeof DashboardFrontOfficeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/fhir/$': {
       id: '/api/fhir/$'
       path: '/api/fhir/$'
@@ -104,8 +177,11 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DashboardFrontOfficeRoute: DashboardFrontOfficeRoute,
+  DashboardPhysicianRoute: DashboardPhysicianRoute,
   PatientsIdRoute: PatientsIdRoute,
   PatientsNewRoute: PatientsNewRoute,
+  PatientsIndexRoute: PatientsIndexRoute,
   ApiFhirSplatRoute: ApiFhirSplatRoute,
 }
 export const routeTree = rootRouteImport
