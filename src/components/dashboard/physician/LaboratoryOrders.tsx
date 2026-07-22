@@ -12,13 +12,6 @@ interface DiagnosticReport {
   category?: any[];
 }
 
-function isAbnormal(r: DiagnosticReport) {
-  const codes = r.conclusionCode?.flatMap((c) => c.coding?.map((cd: any) => cd.code) ?? []) ?? [];
-  if (codes.some((c: string) => ["A", "AA", "H", "HH", "L", "LL"].includes(c))) return true;
-  const text = (r.conclusion ?? "").toLowerCase();
-  return /abnormal|critical|high|low/.test(text);
-}
-
 function isFinal(r: DiagnosticReport) {
   return r.status === "final";
 }
