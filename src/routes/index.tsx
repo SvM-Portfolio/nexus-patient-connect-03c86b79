@@ -8,12 +8,12 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Nexus Pro: role-based EHR dashboards for physicians and front office. FHIR R4 compliant.",
+          "Nexus Pro: EHR dashboards for physicians, FHIR R4 compliant.",
       },
       { property: "og:title", content: "Nexus Pro — Clinical Command Center" },
       {
         property: "og:description",
-        content: "Role-based EHR dashboards for physicians and front office.",
+        content: "Nexus Pro: EHR dashboards for physicians, FHIR R4 compliant.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

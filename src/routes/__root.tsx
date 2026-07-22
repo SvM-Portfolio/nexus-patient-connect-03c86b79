@@ -79,12 +79,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Nexus Pro — Clinical Command Center" },
-      { name: "description", content: "Nexus Pro: role-based EHR with physician and front office dashboards. FHIR R4 compliant." },
+      { name: "description", content: "Nexus Pro: EHR dashboards for physicians, FHIR R4 compliant." },
       { name: "author", content: "Nexus Pro" },
       { property: "og:title", content: "Nexus Pro — Clinical Command Center" },
-      { property: "og:description", content: "Role-based EHR dashboards for physicians and front office." },
+      { property: "og:description", content: "Nexus Pro: EHR dashboards for physicians, FHIR R4 compliant." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Nexus Pro — Clinical Command Center" },
+      { name: "twitter:description", content: "Nexus Pro: EHR dashboards for physicians, FHIR R4 compliant." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/a63681df-b16f-4746-b8d2-9fcd249a267f/id-preview-8d9361a9--0c013ea4-889a-4e28-aa2a-974c2cd97b02.lovable.app-1784691667424.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/a63681df-b16f-4746-b8d2-9fcd249a267f/id-preview-8d9361a9--0c013ea4-889a-4e28-aa2a-974c2cd97b02.lovable.app-1784691667424.png" },
     ],
     links: [
       {
