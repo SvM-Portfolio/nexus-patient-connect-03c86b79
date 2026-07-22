@@ -257,6 +257,38 @@
     stroke-width: 2.3;
   }
 
+  /* Visible keyboard focus rings — clear on mobile and desktop */
+  a:focus-visible,
+  button:focus-visible,
+  [role="tab"]:focus-visible,
+  [role="menuitem"]:focus-visible,
+  [role="link"]:focus-visible,
+  [role="button"]:focus-visible,
+  [data-slot="button"]:focus-visible,
+  [data-slot="tabs-trigger"]:focus-visible,
+  [data-slot="dropdown-menu-item"]:focus-visible,
+  [data-slot="select-trigger"]:focus-visible,
+  [data-slot="table"] button:focus-visible,
+  td button:focus-visible,
+  th button:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible,
+  [tabindex]:not([tabindex="-1"]):focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px oklch(0.62 0.18 165 / 0.22);
+    border-radius: var(--radius-md);
+    transition: outline-color 120ms ease, box-shadow 120ms ease;
+  }
+
+  [role="tab"]:focus-visible,
+  [data-slot="tabs-trigger"]:focus-visible {
+    outline-offset: 3px;
+  }
+
+
+
 
   .dark body {
     background-color: oklch(0.1288 0.0406 264.70);
