@@ -155,6 +155,18 @@
   --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.551 0.027 264.364);
+  --accent-info: oklch(0.72 0.13 250);
+  --accent-summary: oklch(0.72 0.13 250);
+  --accent-observations: oklch(0.72 0.13 160);
+  --accent-encounters: oklch(0.68 0.16 275);
+  --accent-diagnoses: oklch(0.68 0.16 275);
+  --accent-conditions: oklch(0.75 0.15 55);
+  --accent-medications: oklch(0.7 0.18 300);
+  --accent-allergies: oklch(0.7 0.2 25);
+  --accent-procedures: oklch(0.72 0.11 195);
+  --accent-billing: oklch(0.7 0.03 250);
+  --accent-history: oklch(0.7 0.03 250);
+  --accent-notes: oklch(0.78 0.14 75);
 }
 
 @layer base {
