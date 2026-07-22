@@ -175,12 +175,12 @@
   }
 
   html {
-    font-size: 16.5px;
+    font-size: 17.5px;
   }
 
   @media (min-width: 768px) {
     html {
-      font-size: 17px;
+      font-size: 18px;
     }
   }
 
@@ -212,7 +212,7 @@
 
   /* Crisp, consistently visible icons across the app */
   svg {
-    stroke-width: 2.25;
+    stroke-width: 2.4;
     vector-effect: non-scaling-stroke;
   }
 
@@ -225,18 +225,18 @@
   [data-slot="tabs-trigger"] svg,
   [data-slot="dropdown-menu-item"] svg,
   [data-slot="select-trigger"] svg {
-    width: 1.125rem;
-    height: 1.125rem;
-    stroke-width: 2.25;
+    width: 1.25rem;
+    height: 1.25rem;
+    stroke-width: 2.4;
     flex-shrink: 0;
   }
 
   /* Slightly larger, bolder icons for tab triggers so labels + glyphs stay legible on mobile */
   [role="tab"] svg,
   [data-slot="tabs-trigger"] svg {
-    width: 1.15rem;
-    height: 1.15rem;
-    stroke-width: 2.4;
+    width: 1.3rem;
+    height: 1.3rem;
+    stroke-width: 2.5;
   }
 
   /* Table row action icons — compact but crisp */
@@ -244,17 +244,17 @@
   th svg,
   [data-slot="table"] button svg,
   [data-slot="table-cell"] svg {
-    width: 1rem;
-    height: 1rem;
-    stroke-width: 2.4;
+    width: 1.1rem;
+    height: 1.1rem;
+    stroke-width: 2.5;
   }
 
   /* Icon-only ghost/outline buttons (header, popovers) */
   button[data-slot="button"]:where(.size-icon, [class*="size-icon"]) svg,
   button:where([aria-label]):not(:has(> span:not(.sr-only))) svg {
-    width: 1.2rem;
-    height: 1.2rem;
-    stroke-width: 2.3;
+    width: 1.35rem;
+    height: 1.35rem;
+    stroke-width: 2.4;
   }
 
   /* Visible keyboard focus rings — clear on mobile and desktop */
