@@ -77,15 +77,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Nexus Pro — Clinical Command Center" },
+      { name: "description", content: "Nexus Pro: role-based EHR with physician and front office dashboards. FHIR R4 compliant." },
+      { name: "author", content: "Nexus Pro" },
+      { property: "og:title", content: "Nexus Pro — Clinical Command Center" },
+      { property: "og:description", content: "Role-based EHR dashboards for physicians and front office." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
-    ],
     links: [
       {
         rel: "stylesheet",
