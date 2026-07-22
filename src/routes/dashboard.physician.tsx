@@ -8,6 +8,7 @@ import { ClinicalAlerts } from "@/components/dashboard/physician/ClinicalAlerts"
 import { QuickActionsPanel } from "@/components/dashboard/physician/QuickActionsPanel";
 import { PendingTasks } from "@/components/dashboard/physician/PendingTasks";
 import { Announcements } from "@/components/dashboard/physician/Announcements";
+import { ActivityPanel } from "@/components/dashboard/physician/ActivityPanel";
 
 export const Route = createFileRoute("/dashboard/physician")({
   head: () => ({
@@ -65,8 +66,11 @@ function PhysicianDashboard() {
         </div>
       </div>
 
-      <div className="mt-4">
-        <QuickActionsPanel />
+      <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-3">
+        <div className="lg:col-span-2">
+          <QuickActionsPanel />
+        </div>
+        <ActivityPanel />
       </div>
     </div>
   );
