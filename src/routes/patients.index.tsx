@@ -297,34 +297,72 @@ function PatientsPage() {
             ) : (
               <div className="overflow-x-auto rounded-md border">
                 <Table>
+                  <caption className="sr-only">
+                    Patient directory — {total.toLocaleString()} records, page {currentPage} of {totalPages}
+                  </caption>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>
+                      <TableHead
+                        scope="col"
+                        aria-sort={
+                          sortField === "given"
+                            ? sortDir === "asc"
+                              ? "ascending"
+                              : "descending"
+                            : "none"
+                        }
+                      >
                         <button
                           type="button"
-                          className="flex items-center hover:text-foreground"
+                          className="flex items-center rounded-sm hover:text-foreground"
                           onClick={() => toggleSort("given")}
+                          aria-label={`Sort by given name${
+                            sortField === "given"
+                              ? sortDir === "asc"
+                                ? ", currently ascending"
+                                : ", currently descending"
+                              : ""
+                          }`}
                         >
                           Given name {sortIcon("given")}
                         </button>
                       </TableHead>
-                      <TableHead>
+                      <TableHead
+                        scope="col"
+                        aria-sort={
+                          sortField === "family"
+                            ? sortDir === "asc"
+                              ? "ascending"
+                              : "descending"
+                            : "none"
+                        }
+                      >
                         <button
                           type="button"
-                          className="flex items-center hover:text-foreground"
+                          className="flex items-center rounded-sm hover:text-foreground"
                           onClick={() => toggleSort("family")}
+                          aria-label={`Sort by family name${
+                            sortField === "family"
+                              ? sortDir === "asc"
+                                ? ", currently ascending"
+                                : ", currently descending"
+                              : ""
+                          }`}
                         >
                           Family name {sortIcon("family")}
                         </button>
                       </TableHead>
-                      <TableHead>Gender</TableHead>
-                      <TableHead>Date of birth</TableHead>
-                      <TableHead className="text-right">Actions</TableHead>
+                      <TableHead scope="col">Gender</TableHead>
+                      <TableHead scope="col">Date of birth</TableHead>
+                      <TableHead scope="col" className="text-right">Actions</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
                     {patients.map((p) => (
-                      <TableRow key={p.id}>
+                      <TableRow
+                        key={p.id}
+                        className="focus-within:bg-accent/60 focus-within:outline focus-within:outline-2 focus-within:outline-primary"
+                      >
                         <TableCell>{sanitizeGiven(p.name?.[0]?.given) || "—"}</TableCell>
                         <TableCell className="font-medium">
                           {sanitizeName(p.name?.[0]?.family) || "—"}
@@ -335,14 +373,18 @@ function PatientsPage() {
                         <TableCell>{p.birthDate || "—"}</TableCell>
                         <TableCell className="text-right">
                           <Button
-                            variant="ghost"
+                            variant="outline"
                             size="sm"
                             asChild
-                            aria-label={`View ${displayName(p)}`}
                             className="text-foreground"
                           >
-                            <Link to="/patients/$id" params={{ id: p.id! }}>
-                              <Eye className="mr-1 h-4 w-4" /> View Record
+                            <Link
+                              to="/patients/$id"
+                              params={{ id: p.id! }}
+                              aria-label={`View record for ${displayName(p)}`}
+                            >
+                              <Eye className="mr-1 h-4 w-4" aria-hidden="true" />
+                              <span>View Record</span>
                             </Link>
                           </Button>
                         </TableCell>
