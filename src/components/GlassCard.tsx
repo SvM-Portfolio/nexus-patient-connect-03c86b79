@@ -43,7 +43,8 @@ export const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(
         className={cn(
           "glass-surface relative overflow-hidden rounded-2xl",
           "transition-[transform,box-shadow] duration-200 ease-out",
-          "hover:shadow-[0_1px_0_rgba(255,255,255,0.6)_inset,0_14px_44px_rgba(30,60,90,0.08)]",
+          "hover:shadow-[0_1px_0_oklch(1_0_0/0.6)_inset,0_14px_44px_oklch(0.2077_0.0398_265.76/0.08)]",
+          "dark:hover:shadow-[0_1px_0_oklch(1_0_0/0.04)_inset,0_14px_44px_oklch(0_0_0/0.35)]",
           accent &&
             "before:absolute before:left-0 before:top-0 before:h-full before:w-[2px] before:opacity-80 before:content-['']",
           accent && accentClass[accent],
