@@ -1,7 +1,7 @@
 import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
-interface GlassCardProps extends HTMLAttributes<HTMLDivElement> {
+interface GlassCardProps extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
   accent?:
     | "info"
     | "summary"
