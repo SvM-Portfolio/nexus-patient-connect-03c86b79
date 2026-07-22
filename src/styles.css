@@ -169,6 +169,80 @@
   --accent-notes: oklch(0.7686 0.1646 70.08);
 }
 
+/* High-contrast accessibility theme — WCAG AAA focus, monochrome with vivid accents */
+.hc {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0 0 0);
+  --primary: oklch(0.30 0.20 260);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.95 0 0);
+  --secondary-foreground: oklch(0 0 0);
+  --muted: oklch(0.95 0 0);
+  --muted-foreground: oklch(0.20 0 0);
+  --accent: oklch(0.90 0 0);
+  --accent-foreground: oklch(0 0 0);
+  --destructive: oklch(0.45 0.25 27);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0 0 0 / 0.85);
+  --input: oklch(0 0 0 / 0.85);
+  --ring: oklch(0.35 0.25 60);
+  --sidebar: oklch(1 0 0);
+  --sidebar-foreground: oklch(0 0 0);
+  --sidebar-primary: oklch(0.30 0.20 260);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.92 0 0);
+  --sidebar-accent-foreground: oklch(0 0 0);
+  --sidebar-border: oklch(0 0 0 / 0.9);
+  --sidebar-ring: oklch(0.35 0.25 60);
+  --accent-info: oklch(0.30 0.20 260);
+  --accent-summary: oklch(0.30 0.20 200);
+  --accent-observations: oklch(0.30 0.20 160);
+  --accent-encounters: oklch(0.30 0.22 280);
+  --accent-diagnoses: oklch(0.40 0.22 60);
+  --accent-conditions: oklch(0.40 0.22 60);
+  --accent-medications: oklch(0.30 0.22 300);
+  --accent-allergies: oklch(0.45 0.25 27);
+  --accent-procedures: oklch(0.30 0.20 165);
+  --accent-billing: oklch(0.30 0.15 210);
+  --accent-history: oklch(0.20 0 0);
+  --accent-notes: oklch(0.40 0.22 90);
+}
+.hc body {
+  background-image: none;
+}
+.hc *:focus-visible {
+  outline: 3px solid oklch(0.35 0.25 60) !important;
+  outline-offset: 3px !important;
+  box-shadow: 0 0 0 6px oklch(0.35 0.25 60 / 0.35) !important;
+}
+.hc .glass-surface,
+.hc [class~="glass-surface"] {
+  background-color: oklch(1 0 0);
+  backdrop-filter: none;
+  border: 2px solid oklch(0 0 0);
+  box-shadow: none;
+}
+
+/* Custom theme — driven by user-picked CSS variables set on :root via ThemeToggle */
+.custom {
+  --background: var(--custom-background, oklch(0.995 0.008 220));
+  --foreground: var(--custom-foreground, oklch(0.14 0.02 260));
+  --card: var(--custom-card, oklch(1 0 0));
+  --card-foreground: var(--custom-foreground, oklch(0.14 0.02 260));
+  --popover: var(--custom-card, oklch(1 0 0));
+  --popover-foreground: var(--custom-foreground, oklch(0.14 0.02 260));
+  --primary: var(--custom-primary, oklch(0.62 0.18 165));
+  --primary-foreground: var(--custom-primary-foreground, oklch(1 0 0));
+  --accent: var(--custom-accent, oklch(0.94 0.04 200));
+  --ring: var(--custom-primary, oklch(0.62 0.18 165));
+  --sidebar-primary: var(--custom-primary, oklch(0.62 0.18 165));
+  --sidebar-ring: var(--custom-primary, oklch(0.62 0.18 165));
+}
+
 @layer base {
   * {
     border-color: var(--color-border);
