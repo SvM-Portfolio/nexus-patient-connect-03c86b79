@@ -5,10 +5,8 @@ import {
   Search,
   FlaskConical,
   ScanLine,
-  Scissors,
   Pill,
   StickyNote,
-  Phone,
   Share2,
   Zap,
 } from "lucide-react";
