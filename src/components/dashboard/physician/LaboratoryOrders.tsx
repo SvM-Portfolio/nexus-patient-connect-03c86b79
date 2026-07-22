@@ -12,15 +12,12 @@ interface DiagnosticReport {
   category?: any[];
 }
 
-function isAbnormal(r: DiagnosticReport) {
-  const codes = r.conclusionCode?.flatMap((c) => c.coding?.map((cd: any) => cd.code) ?? []) ?? [];
-  if (codes.some((c: string) => ["A", "AA", "H", "HH", "L", "LL"].includes(c))) return true;
-  const text = (r.conclusion ?? "").toLowerCase();
-  return /abnormal|critical|high|low/.test(text);
+function isFinal(r: DiagnosticReport) {
+  return r.status === "final";
 }
 
 function isReviewed(r: DiagnosticReport) {
-  return r.status === "final" || r.extension?.some((e) => e.url?.includes("reviewed"));
+  return r.extension?.some((e) => e.url?.includes("reviewed"));
 }
 
 export function LaboratoryOrders() {
@@ -37,30 +34,29 @@ export function LaboratoryOrders() {
 
   const reports = data ?? [];
   const buckets = [
-    { key: "received", label: "Results received", count: reports.length, color: "bg-accent-info/15 text-accent-info" },
     {
-      key: "normal-unrev",
-      label: "Normal · unreviewed",
-      count: reports.filter((r) => !isAbnormal(r) && !isReviewed(r)).length,
-      color: "bg-accent-observations/15 text-accent-observations",
+      key: "total",
+      label: "Total Reports Received",
+      count: reports.length,
+      color: "bg-accent-info/15 text-accent-info",
     },
     {
-      key: "normal-rev",
-      label: "Normal · reviewed",
-      count: reports.filter((r) => !isAbnormal(r) && isReviewed(r)).length,
-      color: "bg-muted text-muted-foreground",
-    },
-    {
-      key: "abn-unrev",
-      label: "Abnormal · unreviewed",
-      count: reports.filter((r) => isAbnormal(r) && !isReviewed(r)).length,
+      key: "pending",
+      label: "Pending Reports",
+      count: reports.filter((r) => !isFinal(r)).length,
       color: "bg-accent-conditions/15 text-accent-conditions",
     },
     {
-      key: "abn-rev",
-      label: "Abnormal · reviewed",
-      count: reports.filter((r) => isAbnormal(r) && isReviewed(r)).length,
-      color: "bg-accent-medications/15 text-accent-medications",
+      key: "reviewed",
+      label: "Reviewed",
+      count: reports.filter((r) => isFinal(r) && isReviewed(r)).length,
+      color: "bg-accent-summary/15 text-accent-summary",
+    },
+    {
+      key: "unreviewed",
+      label: "Unreviewed",
+      count: reports.filter((r) => isFinal(r) && !isReviewed(r)).length,
+      color: "bg-accent-observations/15 text-accent-observations",
     },
   ];
 
