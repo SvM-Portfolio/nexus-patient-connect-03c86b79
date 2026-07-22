@@ -175,38 +175,24 @@ function PatientsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div>
       <Toaster />
-      <header className="border-b bg-card">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
-          <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-              <Users className="h-5 w-5" />
-            </div>
-            <div>
-              <h1 className="text-lg font-semibold">Nexus Pro</h1>
-              <p className="text-xs text-muted-foreground">
-                FHIR R4 Patient Management
-              </p>
-            </div>
+      <main className="mx-auto max-w-7xl px-4 py-6 md:px-6 md:py-8 space-y-4">
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-semibold tracking-tight">Patients</h1>
+            <p className="mt-1 text-sm text-muted-foreground">FHIR R4 patient directory</p>
           </div>
-          <div className="flex items-center gap-2">
-            <ThemeToggle />
-            <Button asChild>
-              <Link to="/patients/new">
-                <Plus className="mr-2 h-4 w-4" /> New patient
-              </Link>
-            </Button>
-          </div>
-
+          <Button asChild>
+            <Link to="/patients/new">
+              <Plus className="mr-2 h-4 w-4" /> New patient
+            </Link>
+          </Button>
         </div>
-      </header>
-
-      <main className="mx-auto max-w-7xl px-6 py-8 space-y-4">
         <Card>
           <CardHeader className="space-y-4">
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-              <CardTitle>Patients</CardTitle>
+              <CardTitle>Directory</CardTitle>
               <form onSubmit={submitQuick} className="flex w-full gap-2 sm:w-auto">
                 <div className="relative flex-1 sm:w-72">
                   <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
