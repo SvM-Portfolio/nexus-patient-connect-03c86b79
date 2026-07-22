@@ -46,7 +46,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         <div className="absolute right-0 top-1/3 h-[26rem] w-[26rem] rounded-full bg-[color:var(--accent-medications)]/12 blur-3xl" />
       </div>
 
-      <header className="sticky top-0 z-40 border-b border-white/40 bg-white/55 backdrop-blur-2xl dark:border-white/5 dark:bg-black/30">
+      <header className="sticky top-0 z-40 border-b border-border bg-card/80 backdrop-blur-2xl dark:border-border dark:bg-card/70">
         <div className="mx-auto flex h-14 max-w-[1600px] items-center gap-3 px-4 md:px-8">
           {/* Left */}
           <div className="flex items-center gap-2">

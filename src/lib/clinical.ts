@@ -99,7 +99,7 @@ export function allergyBadge(a: any): { label: string; className: string } | nul
     return {
       label: "Life-threatening",
       className:
-        "bg-[color:var(--accent-allergies)] text-white",
+        "bg-[color:var(--accent-allergies)] text-foreground",
     };
   if (crit === "low") return { label: "Low", className: "bg-amber-500/20 text-amber-900 dark:text-amber-200" };
   return null;

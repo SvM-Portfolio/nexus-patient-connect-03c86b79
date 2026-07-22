@@ -32,7 +32,7 @@ export function MessagesPopover() {
         <Button variant="ghost" size="icon" className="relative h-8 w-8 text-muted-foreground" title="Messages">
           <MessageSquare className="h-4 w-4" />
           {unread > 0 && (
-            <span className="absolute right-1 top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-accent-info px-1 text-[9px] font-bold text-white">
+            <span className="absolute right-1 top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-accent-info px-1 text-[9px] font-bold text-foreground">
               {unread}
             </span>
           )}

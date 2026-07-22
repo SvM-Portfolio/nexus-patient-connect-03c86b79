@@ -765,7 +765,7 @@ export function PatientDetail({ patientId }: Props) {
                   return (
                     <div key={n.id} className="rounded-md border p-3 text-sm">
                       {needsReview && (
-                        <div className="mb-2 rounded bg-amber-500/10 px-2 py-1 text-xs font-medium text-amber-800 dark:text-amber-200">
+                        <div className="mb-2 rounded bg-[color:var(--accent-conditions)]/10 px-2 py-1 text-xs font-medium text-[color:var(--accent-conditions)]">
                           ⚠ Needs Review
                         </div>
                       )}
@@ -873,7 +873,7 @@ function SummaryChip({
       </div>
       {badge && (
         <span
-          className="rounded-full px-2 py-0.5 text-xs font-semibold text-white"
+          className="rounded-full px-2 py-0.5 text-xs font-semibold text-foreground"
           style={{ backgroundColor: domainVar(domain) }}
         >
           {badge}
