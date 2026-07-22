@@ -405,12 +405,14 @@ function PatientsPage() {
                         <TableCell>{p.birthDate || "—"}</TableCell>
                         <TableCell className="whitespace-nowrap text-muted-foreground">
                           {(() => {
-                            const ts = p.id ? visitedAtById.get(p.id) : undefined;
+                            const ts = tsFor(p);
                             if (!ts) return "—";
                             const d = new Date(ts);
+                            const visited = p.id ? visitedAtById.get(p.id) ?? 0 : 0;
+                            const source = visited && visited >= parseTs(p.meta?.lastUpdated) ? "Visited" : "Updated";
                             return (
-                              <time dateTime={d.toISOString()} title={d.toLocaleString()}>
-                                {d.toLocaleDateString(undefined, { month: "short", day: "numeric" })}
+                              <time dateTime={d.toISOString()} title={`${source} ${d.toLocaleString()}`}>
+                                {d.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" })}
                                 {" · "}
                                 {d.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" })}
                               </time>
