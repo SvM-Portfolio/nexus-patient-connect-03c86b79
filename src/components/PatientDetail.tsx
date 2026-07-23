@@ -124,6 +124,24 @@ function InfoRow({
   );
 }
 
+function ConditionCodeBadges({ coding }: { coding?: any[] }) {
+  if (!coding || coding.length === 0) return null;
+  return (
+    <div className="mt-1.5 flex flex-wrap gap-1">
+      {coding
+        .filter((c) => c?.code)
+        .map((c, i) => (
+          <span
+            key={`${c.system ?? ""}-${c.code}-${i}`}
+            className="rounded bg-slate-100 px-2 py-0.5 font-mono text-xs text-slate-700 dark:bg-slate-800 dark:text-slate-200"
+            title={c.system}
+          >
+            {codeSystemLabel(c.system)}: {c.code}
+          </span>
+        ))}
+    </div>
+  );
+
 const TABS: { key: string; label: string; icon: any; domain: DomainKey }[] = [
   { key: "info", label: "Patient Info", icon: UserIcon, domain: "info" },
   { key: "summary", label: "Summary", icon: ListChecks, domain: "summary" },
