@@ -141,6 +141,8 @@ function ConditionCodeBadges({ coding }: { coding?: any[] }) {
         ))}
     </div>
   );
+}
+
 
 const TABS: { key: string; label: string; icon: any; domain: DomainKey }[] = [
   { key: "info", label: "Patient Info", icon: UserIcon, domain: "info" },
