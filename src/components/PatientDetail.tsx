@@ -51,6 +51,7 @@ import { PatientForm } from "@/components/PatientForm";
 import { DomainCard } from "@/components/DomainCard";
 import { ShowMore } from "@/components/ShowMore";
 import { VitalsCards } from "@/components/VitalsCards";
+import { ObservationsSections } from "@/components/ObservationsSections";
 import { QuickActions } from "@/components/QuickActions";
 import {
   getPatient,
