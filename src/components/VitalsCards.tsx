@@ -128,7 +128,10 @@ export function VitalsCards({
   const heightList = useMemo(() => filterByCode(observations, VITAL_CODES.height), [observations]);
   const weightList = useMemo(() => filterByCode(observations, VITAL_CODES.weight), [observations]);
   const bmiList = useMemo(() => filterByCode(observations, VITAL_CODES.bmi), [observations]);
-  const hba1cList = useMemo(() => filterByCode(observations, VITAL_CODES.hba1c), [observations]);
+  const hba1cList = useMemo(
+    () => filterByCode(observations, VITAL_CODES.hba1c, VITAL_CODES.hba1cAlt),
+    [observations],
+  );
 
   // Derived BMI when missing
   const derivedBmi = (() => {
