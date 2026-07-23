@@ -178,9 +178,10 @@ export function VitalsCards({
             value: obsNumeric(o),
             extra: o._derived ? "calculated" : undefined,
           }))} />
-        {hasDiabetes && (
+        {hba1cList.length > 0 && (
           <div className="sm:col-span-2 lg:col-span-4">
             <TrendCard label="HbA1c" unit="%" color={color}
+              format={(v) => v.toFixed(2)}
               values={hba1cList.map((o) => ({ date: obsDate(o), value: obsNumeric(o) }))} />
           </div>
         )}
