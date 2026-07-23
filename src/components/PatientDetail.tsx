@@ -463,30 +463,13 @@ export function PatientDetail({ patientId }: Props) {
 
         {/* Observations */}
         <TabsContent value="observations" className="mt-4 space-y-4">
-          {vitals.isLoading ? (
-            <Skeleton className="h-64 w-full" />
-          ) : (
-            <VitalsCards observations={vitals.data} hasDiabetes={hasDiabetes} />
-          )}
-          <DomainCard domain="observations" title="General Findings (non-vitals)">
-            <SectionState loading={findings.isLoading} error={findings.error as any}
-              empty={!findings.data?.length} emptyText="No findings recorded.">
-              <ShowMore
-                items={findings.data ?? []}
-                render={(o: any) => (
-                  <div key={o.id} className="rounded-md border p-2 text-sm">
-                    <div className="flex items-start justify-between gap-2">
-                      <span className="font-medium">{codingText(o.code) || "Observation"}</span>
-                      <span className="text-xs text-muted-foreground">
-                        {o.effectiveDateTime ? new Date(o.effectiveDateTime).toLocaleDateString() : ""}
-                      </span>
-                    </div>
-                    <p className="mt-1 text-muted-foreground">{observationValue(o) || "—"}</p>
-                  </div>
-                )}
-              />
-            </SectionState>
-          </DomainCard>
+          <ObservationsSections
+            vitals={vitals.data}
+            vitalsLoading={vitals.isLoading}
+            findings={findings.data}
+            findingsLoading={findings.isLoading}
+            findingsError={findings.error as Error | null}
+          />
         </TabsContent>
 
         {/* Encounters */}
