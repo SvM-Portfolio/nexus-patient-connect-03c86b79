@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as FhirResourcesRouteImport } from './routes/fhir-resources'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PatientsIndexRouteImport } from './routes/patients.index'
 import { Route as PatientsNewRouteImport } from './routes/patients.new'
@@ -17,6 +18,11 @@ import { Route as DashboardPhysicianRouteImport } from './routes/dashboard.physi
 import { Route as DashboardFrontOfficeRouteImport } from './routes/dashboard.front-office'
 import { Route as ApiFhirSplatRouteImport } from './routes/api/fhir.$'
 
+const FhirResourcesRoute = FhirResourcesRouteImport.update({
+  id: '/fhir-resources',
+  path: '/fhir-resources',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -55,6 +61,7 @@ const ApiFhirSplatRoute = ApiFhirSplatRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/fhir-resources': typeof FhirResourcesRoute
   '/dashboard/front-office': typeof DashboardFrontOfficeRoute
   '/dashboard/physician': typeof DashboardPhysicianRoute
   '/patients/$id': typeof PatientsIdRoute
@@ -64,6 +71,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/fhir-resources': typeof FhirResourcesRoute
   '/dashboard/front-office': typeof DashboardFrontOfficeRoute
   '/dashboard/physician': typeof DashboardPhysicianRoute
   '/patients/$id': typeof PatientsIdRoute
@@ -74,6 +82,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/fhir-resources': typeof FhirResourcesRoute
   '/dashboard/front-office': typeof DashboardFrontOfficeRoute
   '/dashboard/physician': typeof DashboardPhysicianRoute
   '/patients/$id': typeof PatientsIdRoute
@@ -85,6 +94,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/fhir-resources'
     | '/dashboard/front-office'
     | '/dashboard/physician'
     | '/patients/$id'
@@ -94,6 +104,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/fhir-resources'
     | '/dashboard/front-office'
     | '/dashboard/physician'
     | '/patients/$id'
@@ -103,6 +114,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/fhir-resources'
     | '/dashboard/front-office'
     | '/dashboard/physician'
     | '/patients/$id'
@@ -113,6 +125,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  FhirResourcesRoute: typeof FhirResourcesRoute
   DashboardFrontOfficeRoute: typeof DashboardFrontOfficeRoute
   DashboardPhysicianRoute: typeof DashboardPhysicianRoute
   PatientsIdRoute: typeof PatientsIdRoute
@@ -123,6 +136,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/fhir-resources': {
+      id: '/fhir-resources'
+      path: '/fhir-resources'
+      fullPath: '/fhir-resources'
+      preLoaderRoute: typeof FhirResourcesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -177,6 +197,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  FhirResourcesRoute: FhirResourcesRoute,
   DashboardFrontOfficeRoute: DashboardFrontOfficeRoute,
   DashboardPhysicianRoute: DashboardPhysicianRoute,
   PatientsIdRoute: PatientsIdRoute,
@@ -187,13 +208,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
