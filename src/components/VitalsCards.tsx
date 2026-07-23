@@ -111,10 +111,10 @@ function TrendCard({
 
 export function VitalsCards({
   observations,
-  hasDiabetes,
+  hasDiabetes: _hasDiabetes,
 }: {
   observations: any[] | undefined;
-  hasDiabetes: boolean;
+  hasDiabetes?: boolean;
 }) {
   const color = "var(--accent-observations)";
   const bpList = useMemo(() => filterByCode(observations, VITAL_CODES.bp), [observations]);
