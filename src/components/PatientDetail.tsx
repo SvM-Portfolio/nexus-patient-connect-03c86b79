@@ -552,15 +552,18 @@ export function PatientDetail({ patientId }: Props) {
           <DomainCard domain="conditions" title="Active Conditions">
             <SectionState loading={activeConditions.isLoading} error={activeConditions.error as any}
               empty={!activeConditions.data?.length} emptyText="No active conditions.">
-              <ul className="space-y-1 text-sm">
+              <ul className="space-y-1.5 text-sm">
                 {activeConditions.data?.map((c: any) => (
-                  <li key={c.id} className="rounded-md border p-2">
-                    <span className="font-medium">{codingText(c.code)}</span>
-                    {c.onsetDateTime && (
-                      <span className="ml-2 text-xs text-muted-foreground">
-                        onset {new Date(c.onsetDateTime).toLocaleDateString()}
-                      </span>
-                    )}
+                  <li key={c.id} className="rounded-md border p-2.5">
+                    <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                      <span className="font-medium">{codingText(c.code)}</span>
+                      {c.onsetDateTime && (
+                        <span className="text-xs text-muted-foreground">
+                          onset {new Date(c.onsetDateTime).toLocaleDateString()}
+                        </span>
+                      )}
+                    </div>
+                    <ConditionCodeBadges coding={c.code?.coding} />
                   </li>
                 ))}
               </ul>
