@@ -111,10 +111,10 @@ function TrendCard({
 
 export function VitalsCards({
   observations,
-  hasDiabetes,
+  hasDiabetes: _hasDiabetes,
 }: {
   observations: any[] | undefined;
-  hasDiabetes: boolean;
+  hasDiabetes?: boolean;
 }) {
   const color = "var(--accent-observations)";
   const bpList = useMemo(() => filterByCode(observations, VITAL_CODES.bp), [observations]);
@@ -128,7 +128,10 @@ export function VitalsCards({
   const heightList = useMemo(() => filterByCode(observations, VITAL_CODES.height), [observations]);
   const weightList = useMemo(() => filterByCode(observations, VITAL_CODES.weight), [observations]);
   const bmiList = useMemo(() => filterByCode(observations, VITAL_CODES.bmi), [observations]);
-  const hba1cList = useMemo(() => filterByCode(observations, VITAL_CODES.hba1c), [observations]);
+  const hba1cList = useMemo(
+    () => filterByCode(observations, VITAL_CODES.hba1c, VITAL_CODES.hba1cAlt),
+    [observations],
+  );
 
   // Derived BMI when missing
   const derivedBmi = (() => {
@@ -175,9 +178,10 @@ export function VitalsCards({
             value: obsNumeric(o),
             extra: o._derived ? "calculated" : undefined,
           }))} />
-        {hasDiabetes && (
+        {hba1cList.length > 0 && (
           <div className="sm:col-span-2 lg:col-span-4">
             <TrendCard label="HbA1c" unit="%" color={color}
+              format={(v) => v.toFixed(2)}
               values={hba1cList.map((o) => ({ date: obsDate(o), value: obsNumeric(o) }))} />
           </div>
         )}

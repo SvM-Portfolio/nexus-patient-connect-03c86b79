@@ -51,6 +51,7 @@ import { PatientForm } from "@/components/PatientForm";
 import { DomainCard } from "@/components/DomainCard";
 import { ShowMore } from "@/components/ShowMore";
 import { VitalsCards } from "@/components/VitalsCards";
+import { ObservationsSections } from "@/components/ObservationsSections";
 import { QuickActions } from "@/components/QuickActions";
 import {
   getPatient,
@@ -69,6 +70,7 @@ import {
   domainVar,
   allergyCriticalityClass,
   allergyBadge,
+  codeSystemLabel,
   type DomainKey,
 } from "@/lib/clinical";
 
@@ -121,6 +123,26 @@ function InfoRow({
     </div>
   );
 }
+
+function ConditionCodeBadges({ coding }: { coding?: any[] }) {
+  if (!coding || coding.length === 0) return null;
+  return (
+    <div className="mt-1.5 flex flex-wrap gap-1">
+      {coding
+        .filter((c) => c?.code)
+        .map((c, i) => (
+          <span
+            key={`${c.system ?? ""}-${c.code}-${i}`}
+            className="rounded bg-slate-100 px-2 py-0.5 font-mono text-xs text-slate-700 dark:bg-slate-800 dark:text-slate-200"
+            title={c.system}
+          >
+            {codeSystemLabel(c.system)}: {c.code}
+          </span>
+        ))}
+    </div>
+  );
+}
+
 
 const TABS: { key: string; label: string; icon: any; domain: DomainKey }[] = [
   { key: "info", label: "Patient Info", icon: UserIcon, domain: "info" },
@@ -463,30 +485,13 @@ export function PatientDetail({ patientId }: Props) {
 
         {/* Observations */}
         <TabsContent value="observations" className="mt-4 space-y-4">
-          {vitals.isLoading ? (
-            <Skeleton className="h-64 w-full" />
-          ) : (
-            <VitalsCards observations={vitals.data} hasDiabetes={hasDiabetes} />
-          )}
-          <DomainCard domain="observations" title="General Findings (non-vitals)">
-            <SectionState loading={findings.isLoading} error={findings.error as any}
-              empty={!findings.data?.length} emptyText="No findings recorded.">
-              <ShowMore
-                items={findings.data ?? []}
-                render={(o: any) => (
-                  <div key={o.id} className="rounded-md border p-2 text-sm">
-                    <div className="flex items-start justify-between gap-2">
-                      <span className="font-medium">{codingText(o.code) || "Observation"}</span>
-                      <span className="text-xs text-muted-foreground">
-                        {o.effectiveDateTime ? new Date(o.effectiveDateTime).toLocaleDateString() : ""}
-                      </span>
-                    </div>
-                    <p className="mt-1 text-muted-foreground">{observationValue(o) || "—"}</p>
-                  </div>
-                )}
-              />
-            </SectionState>
-          </DomainCard>
+          <ObservationsSections
+            vitals={vitals.data}
+            vitalsLoading={vitals.isLoading}
+            findings={findings.data}
+            findingsLoading={findings.isLoading}
+            findingsError={findings.error as Error | null}
+          />
         </TabsContent>
 
         {/* Encounters */}
@@ -568,15 +573,18 @@ export function PatientDetail({ patientId }: Props) {
           <DomainCard domain="conditions" title="Active Conditions">
             <SectionState loading={activeConditions.isLoading} error={activeConditions.error as any}
               empty={!activeConditions.data?.length} emptyText="No active conditions.">
-              <ul className="space-y-1 text-sm">
+              <ul className="space-y-1.5 text-sm">
                 {activeConditions.data?.map((c: any) => (
-                  <li key={c.id} className="rounded-md border p-2">
-                    <span className="font-medium">{codingText(c.code)}</span>
-                    {c.onsetDateTime && (
-                      <span className="ml-2 text-xs text-muted-foreground">
-                        onset {new Date(c.onsetDateTime).toLocaleDateString()}
-                      </span>
-                    )}
+                  <li key={c.id} className="rounded-md border p-2.5">
+                    <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                      <span className="font-medium">{codingText(c.code)}</span>
+                      {c.onsetDateTime && (
+                        <span className="text-xs text-muted-foreground">
+                          onset {new Date(c.onsetDateTime).toLocaleDateString()}
+                        </span>
+                      )}
+                    </div>
+                    <ConditionCodeBadges coding={c.code?.coding} />
                   </li>
                 ))}
               </ul>
