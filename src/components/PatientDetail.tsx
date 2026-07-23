@@ -70,6 +70,7 @@ import {
   domainVar,
   allergyCriticalityClass,
   allergyBadge,
+  codeSystemLabel,
   type DomainKey,
 } from "@/lib/clinical";
 
