@@ -190,10 +190,10 @@ export function PatientDetail({ patientId }: Props) {
   const resolvedConditions = useResources(["conditions-resolved", patientId], "Condition",
     { patient: patientId, "clinical-status": "resolved,inactive,remission", _count: "100" });
 
-  const currentDiagnoses = useResources(["dx-current", patientId], "Condition",
-    { patient: patientId, category: "encounter-diagnosis", "clinical-status": "active", _count: "50" });
-  const historicalDiagnoses = useResources(["dx-history", patientId], "Condition",
-    { patient: patientId, category: "encounter-diagnosis", _sort: "-recorded-date", _count: "100" });
+  const currentDiagnoses = useResources(["dx-reports-current", patientId], "DiagnosticReport",
+    { patient: patientId, status: "final,amended,corrected,appended,preliminary,registered", _sort: "-date", _count: "50" });
+  const historicalDiagnoses = useResources(["dx-reports-history", patientId], "DiagnosticReport",
+    { patient: patientId, _sort: "-date", _count: "100" });
 
   const activeMeds = useResources(["meds-active", patientId], "MedicationRequest",
     { patient: patientId, status: "active", _count: "50" });
