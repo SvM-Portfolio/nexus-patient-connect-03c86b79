@@ -25,7 +25,6 @@ import {
   Loader2,
   Plus,
   Save,
-  Trash2,
   AlertCircle,
   CheckCircle2,
   Users,
