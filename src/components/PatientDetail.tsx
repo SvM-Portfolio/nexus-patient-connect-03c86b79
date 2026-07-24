@@ -400,7 +400,7 @@ export function PatientDetail({ patientId }: Props) {
         <SummaryChip
           domain="conditions"
           label="Active conditions"
-          count={(activeConditions.data ?? []).length}
+          count={confirmedActiveConditions.length}
           loading={activeConditions.isLoading}
           onClick={() => setTab("conditions")}
         />
