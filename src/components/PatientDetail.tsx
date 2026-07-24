@@ -4,7 +4,6 @@ import { useNavigate } from "@tanstack/react-router";
 import {
   Loader2,
   Pencil,
-  Trash2,
   Archive,
   Calendar,
   MapPin,
