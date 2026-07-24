@@ -251,16 +251,39 @@ export function PatientDetail({ patientId }: Props) {
     },
   });
 
+  // Filter Active Conditions: confirmed disease diagnoses only.
+  // Exclude social-history / findings categories and non-confirmed items.
+  const confirmedActiveConditions = useMemo(() => {
+    const SOCIAL_CATS = new Set([
+      "social-history",
+      "problem-list-item-social",
+      "sdoh",
+    ]);
+    return (activeConditions.data ?? []).filter((c: any) => {
+      const clinical = c?.clinicalStatus?.coding?.[0]?.code;
+      const verification = c?.verificationStatus?.coding?.[0]?.code;
+      if (clinical !== "active") return false;
+      if (verification && verification !== "confirmed") return false;
+      if (!verification) return false; // require explicit confirmed
+      const cats: string[] = (c?.category ?? []).flatMap((cat: any) =>
+        (cat?.coding ?? []).map((cc: any) => (cc?.code || "").toLowerCase()),
+      );
+      if (cats.some((k) => SOCIAL_CATS.has(k))) return false;
+      return true;
+    });
+  }, [activeConditions.data]);
+
   // Detect diabetes for HbA1c trend
   const hasDiabetes = useMemo(
     () =>
-      (activeConditions.data ?? []).some((c: any) =>
+      confirmedActiveConditions.some((c: any) =>
         (c?.code?.coding ?? []).some(
           (co: any) => co.code === "44054006" || /diabetes/i.test(co.display || ""),
         ),
       ),
-    [activeConditions.data],
+    [confirmedActiveConditions],
   );
+
 
   if (patientQ.isLoading) {
     return (
