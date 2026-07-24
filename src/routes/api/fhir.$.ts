@@ -48,7 +48,6 @@ export const Route = createFileRoute("/api/fhir/$")({
       GET: proxy,
       POST: proxy,
       PUT: proxy,
-      DELETE: proxy,
       PATCH: proxy,
     },
   },
