@@ -190,10 +190,10 @@ export function PatientDetail({ patientId }: Props) {
   const resolvedConditions = useResources(["conditions-resolved", patientId], "Condition",
     { patient: patientId, "clinical-status": "resolved,inactive,remission", _count: "100" });
 
-  const currentDiagnoses = useResources(["dx-current", patientId], "Condition",
-    { patient: patientId, category: "encounter-diagnosis", "clinical-status": "active", _count: "50" });
-  const historicalDiagnoses = useResources(["dx-history", patientId], "Condition",
-    { patient: patientId, category: "encounter-diagnosis", _sort: "-recorded-date", _count: "100" });
+  const currentDiagnoses = useResources(["dx-reports-current", patientId], "DiagnosticReport",
+    { patient: patientId, status: "final,amended,corrected,appended,preliminary,registered", _sort: "-date", _count: "50" });
+  const historicalDiagnoses = useResources(["dx-reports-history", patientId], "DiagnosticReport",
+    { patient: patientId, _sort: "-date", _count: "100" });
 
   const activeMeds = useResources(["meds-active", patientId], "MedicationRequest",
     { patient: patientId, status: "active", _count: "50" });
@@ -251,16 +251,39 @@ export function PatientDetail({ patientId }: Props) {
     },
   });
 
+  // Filter Active Conditions: confirmed disease diagnoses only.
+  // Exclude social-history / findings categories and non-confirmed items.
+  const confirmedActiveConditions = useMemo(() => {
+    const SOCIAL_CATS = new Set([
+      "social-history",
+      "problem-list-item-social",
+      "sdoh",
+    ]);
+    return (activeConditions.data ?? []).filter((c: any) => {
+      const clinical = c?.clinicalStatus?.coding?.[0]?.code;
+      const verification = c?.verificationStatus?.coding?.[0]?.code;
+      if (clinical !== "active") return false;
+      if (verification && verification !== "confirmed") return false;
+      if (!verification) return false; // require explicit confirmed
+      const cats: string[] = (c?.category ?? []).flatMap((cat: any) =>
+        (cat?.coding ?? []).map((cc: any) => (cc?.code || "").toLowerCase()),
+      );
+      if (cats.some((k) => SOCIAL_CATS.has(k))) return false;
+      return true;
+    });
+  }, [activeConditions.data]);
+
   // Detect diabetes for HbA1c trend
   const hasDiabetes = useMemo(
     () =>
-      (activeConditions.data ?? []).some((c: any) =>
+      confirmedActiveConditions.some((c: any) =>
         (c?.code?.coding ?? []).some(
           (co: any) => co.code === "44054006" || /diabetes/i.test(co.display || ""),
         ),
       ),
-    [activeConditions.data],
+    [confirmedActiveConditions],
   );
+
 
   if (patientQ.isLoading) {
     return (
@@ -377,7 +400,7 @@ export function PatientDetail({ patientId }: Props) {
         <SummaryChip
           domain="conditions"
           label="Active conditions"
-          count={(activeConditions.data ?? []).length}
+          count={confirmedActiveConditions.length}
           loading={activeConditions.isLoading}
           onClick={() => setTab("conditions")}
         />
@@ -439,9 +462,9 @@ export function PatientDetail({ patientId }: Props) {
         <TabsContent value="summary" className="mt-4 space-y-4">
           <div className="grid gap-4 md:grid-cols-2">
             <MiniList domain="conditions" title="Active Conditions"
-              q={activeConditions} render={(c: any) => codingText(c.code)} />
-            <MiniList domain="diagnoses" title="Current Diagnoses"
-              q={currentDiagnoses} render={(c: any) => codingText(c.code)} />
+              q={{ ...activeConditions, data: confirmedActiveConditions }} render={(c: any) => codingText(c.code)} />
+            <MiniList domain="diagnoses" title="Diagnostic Reports"
+              q={currentDiagnoses} render={(r: any) => r.code?.text || r.code?.coding?.[0]?.display || codingText(r.code) || "Report"} />
             <MiniList domain="medications" title="Active Medications"
               q={activeMeds} render={(m: any) => codingText(m.medicationCodeableConcept) || "Medication"} />
             <MiniList domain="procedures" title="Recent Procedures"
@@ -535,32 +558,56 @@ export function PatientDetail({ patientId }: Props) {
           </DomainCard>
         </TabsContent>
 
-        {/* Diagnoses */}
+        {/* Diagnoses (DiagnosticReport) */}
         <TabsContent value="diagnoses" className="mt-4 space-y-4">
-          <DomainCard domain="diagnoses" title="Current Encounter Diagnoses">
+          <DomainCard domain="diagnoses" title="Current Diagnostic Reports">
             <SectionState loading={currentDiagnoses.isLoading} error={currentDiagnoses.error as any}
-              empty={!currentDiagnoses.data?.length} emptyText="No current diagnoses.">
-              <ul className="space-y-1 text-sm">
-                {currentDiagnoses.data?.map((c: any) => (
-                  <li key={c.id} className="rounded-md border p-2">
-                    <span className="font-medium">{codingText(c.code)}</span>
-                    {c.recordedDate && <span className="ml-2 text-xs text-muted-foreground">recorded {new Date(c.recordedDate).toLocaleDateString()}</span>}
+              empty={!currentDiagnoses.data?.length} emptyText="No diagnostic reports.">
+              <ul className="space-y-1.5 text-sm">
+                {currentDiagnoses.data?.map((r: any) => (
+                  <li key={r.id} className="rounded-md border p-2.5">
+                    <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                      <span className="font-medium">
+                        {r.code?.text || r.code?.coding?.[0]?.display || codingText(r.code) || "Report"}
+                      </span>
+                      {r.status && (
+                        <span className="rounded bg-muted px-1.5 py-0.5 text-[11px] uppercase tracking-wide text-muted-foreground">
+                          {r.status}
+                        </span>
+                      )}
+                      {(r.effectiveDateTime || r.issued) && (
+                        <span className="text-xs text-muted-foreground">
+                          {new Date(r.effectiveDateTime || r.issued).toLocaleDateString()}
+                        </span>
+                      )}
+                    </div>
+                    <ConditionCodeBadges coding={r.code?.coding} />
                   </li>
                 ))}
               </ul>
             </SectionState>
           </DomainCard>
-          <DomainCard domain="diagnoses" title="Historical Diagnoses">
+          <DomainCard domain="diagnoses" title="Historical Diagnostic Reports">
             <SectionState loading={historicalDiagnoses.isLoading} error={historicalDiagnoses.error as any}
-              empty={!historicalDiagnoses.data?.length} emptyText="No historical diagnoses.">
+              empty={!historicalDiagnoses.data?.length} emptyText="No historical reports.">
               <ShowMore
                 items={historicalDiagnoses.data ?? []}
-                render={(c: any) => (
-                  <div key={c.id} className="rounded-md border p-2 text-sm">
-                    <span className="font-medium">{codingText(c.code)}</span>
-                    <span className="ml-2 text-xs text-muted-foreground">
-                      {c.recordedDate ? new Date(c.recordedDate).toLocaleDateString() : ""}
-                    </span>
+                render={(r: any) => (
+                  <div key={r.id} className="rounded-md border p-2 text-sm">
+                    <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                      <span className="font-medium">
+                        {r.code?.text || r.code?.coding?.[0]?.display || codingText(r.code) || "Report"}
+                      </span>
+                      {r.status && (
+                        <span className="rounded bg-muted px-1.5 py-0.5 text-[11px] uppercase tracking-wide text-muted-foreground">
+                          {r.status}
+                        </span>
+                      )}
+                      <span className="text-xs text-muted-foreground">
+                        {(r.effectiveDateTime || r.issued) ? new Date(r.effectiveDateTime || r.issued).toLocaleDateString() : ""}
+                      </span>
+                    </div>
+                    <ConditionCodeBadges coding={r.code?.coding} />
                   </div>
                 )}
               />
@@ -568,13 +615,14 @@ export function PatientDetail({ patientId }: Props) {
           </DomainCard>
         </TabsContent>
 
+
         {/* Conditions */}
         <TabsContent value="conditions" className="mt-4 space-y-4">
           <DomainCard domain="conditions" title="Active Conditions">
             <SectionState loading={activeConditions.isLoading} error={activeConditions.error as any}
-              empty={!activeConditions.data?.length} emptyText="No active conditions.">
+              empty={!confirmedActiveConditions.length} emptyText="No confirmed active conditions.">
               <ul className="space-y-1.5 text-sm">
-                {activeConditions.data?.map((c: any) => (
+                {confirmedActiveConditions.map((c: any) => (
                   <li key={c.id} className="rounded-md border p-2.5">
                     <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
                       <span className="font-medium">{codingText(c.code)}</span>
