@@ -462,9 +462,9 @@ export function PatientDetail({ patientId }: Props) {
         <TabsContent value="summary" className="mt-4 space-y-4">
           <div className="grid gap-4 md:grid-cols-2">
             <MiniList domain="conditions" title="Active Conditions"
-              q={activeConditions} render={(c: any) => codingText(c.code)} />
-            <MiniList domain="diagnoses" title="Current Diagnoses"
-              q={currentDiagnoses} render={(c: any) => codingText(c.code)} />
+              q={{ ...activeConditions, data: confirmedActiveConditions }} render={(c: any) => codingText(c.code)} />
+            <MiniList domain="diagnoses" title="Diagnostic Reports"
+              q={currentDiagnoses} render={(r: any) => r.code?.text || r.code?.coding?.[0]?.display || codingText(r.code) || "Report"} />
             <MiniList domain="medications" title="Active Medications"
               q={activeMeds} render={(m: any) => codingText(m.medicationCodeableConcept) || "Medication"} />
             <MiniList domain="procedures" title="Recent Procedures"
