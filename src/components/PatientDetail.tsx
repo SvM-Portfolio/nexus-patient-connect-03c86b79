@@ -535,38 +535,63 @@ export function PatientDetail({ patientId }: Props) {
           </DomainCard>
         </TabsContent>
 
-        {/* Diagnoses */}
+        {/* Diagnoses (DiagnosticReport) */}
         <TabsContent value="diagnoses" className="mt-4 space-y-4">
-          <DomainCard domain="diagnoses" title="Current Encounter Diagnoses">
+          <DomainCard domain="diagnoses" title="Current Diagnostic Reports">
             <SectionState loading={currentDiagnoses.isLoading} error={currentDiagnoses.error as any}
-              empty={!currentDiagnoses.data?.length} emptyText="No current diagnoses.">
-              <ul className="space-y-1 text-sm">
-                {currentDiagnoses.data?.map((c: any) => (
-                  <li key={c.id} className="rounded-md border p-2">
-                    <span className="font-medium">{codingText(c.code)}</span>
-                    {c.recordedDate && <span className="ml-2 text-xs text-muted-foreground">recorded {new Date(c.recordedDate).toLocaleDateString()}</span>}
+              empty={!currentDiagnoses.data?.length} emptyText="No diagnostic reports.">
+              <ul className="space-y-1.5 text-sm">
+                {currentDiagnoses.data?.map((r: any) => (
+                  <li key={r.id} className="rounded-md border p-2.5">
+                    <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                      <span className="font-medium">
+                        {r.code?.text || r.code?.coding?.[0]?.display || codingText(r.code) || "Report"}
+                      </span>
+                      {r.status && (
+                        <span className="rounded bg-muted px-1.5 py-0.5 text-[11px] uppercase tracking-wide text-muted-foreground">
+                          {r.status}
+                        </span>
+                      )}
+                      {(r.effectiveDateTime || r.issued) && (
+                        <span className="text-xs text-muted-foreground">
+                          {new Date(r.effectiveDateTime || r.issued).toLocaleDateString()}
+                        </span>
+                      )}
+                    </div>
+                    <ConditionCodeBadges coding={r.code?.coding} />
                   </li>
                 ))}
               </ul>
             </SectionState>
           </DomainCard>
-          <DomainCard domain="diagnoses" title="Historical Diagnoses">
+          <DomainCard domain="diagnoses" title="Historical Diagnostic Reports">
             <SectionState loading={historicalDiagnoses.isLoading} error={historicalDiagnoses.error as any}
-              empty={!historicalDiagnoses.data?.length} emptyText="No historical diagnoses.">
+              empty={!historicalDiagnoses.data?.length} emptyText="No historical reports.">
               <ShowMore
                 items={historicalDiagnoses.data ?? []}
-                render={(c: any) => (
-                  <div key={c.id} className="rounded-md border p-2 text-sm">
-                    <span className="font-medium">{codingText(c.code)}</span>
-                    <span className="ml-2 text-xs text-muted-foreground">
-                      {c.recordedDate ? new Date(c.recordedDate).toLocaleDateString() : ""}
-                    </span>
+                render={(r: any) => (
+                  <div key={r.id} className="rounded-md border p-2 text-sm">
+                    <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                      <span className="font-medium">
+                        {r.code?.text || r.code?.coding?.[0]?.display || codingText(r.code) || "Report"}
+                      </span>
+                      {r.status && (
+                        <span className="rounded bg-muted px-1.5 py-0.5 text-[11px] uppercase tracking-wide text-muted-foreground">
+                          {r.status}
+                        </span>
+                      )}
+                      <span className="text-xs text-muted-foreground">
+                        {(r.effectiveDateTime || r.issued) ? new Date(r.effectiveDateTime || r.issued).toLocaleDateString() : ""}
+                      </span>
+                    </div>
+                    <ConditionCodeBadges coding={r.code?.coding} />
                   </div>
                 )}
               />
             </SectionState>
           </DomainCard>
         </TabsContent>
+
 
         {/* Conditions */}
         <TabsContent value="conditions" className="mt-4 space-y-4">
