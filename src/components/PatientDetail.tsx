@@ -620,9 +620,9 @@ export function PatientDetail({ patientId }: Props) {
         <TabsContent value="conditions" className="mt-4 space-y-4">
           <DomainCard domain="conditions" title="Active Conditions">
             <SectionState loading={activeConditions.isLoading} error={activeConditions.error as any}
-              empty={!activeConditions.data?.length} emptyText="No active conditions.">
+              empty={!confirmedActiveConditions.length} emptyText="No confirmed active conditions.">
               <ul className="space-y-1.5 text-sm">
-                {activeConditions.data?.map((c: any) => (
+                {confirmedActiveConditions.map((c: any) => (
                   <li key={c.id} className="rounded-md border p-2.5">
                     <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
                       <span className="font-medium">{codingText(c.code)}</span>
