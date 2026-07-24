@@ -830,19 +830,6 @@ function Step5({ draft, update }: { draft: IntakeDraft; update: (p: Partial<Inta
                 />
                 Resolved
               </label>
-              <div className="flex items-end justify-end">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() =>
-                    update({
-                      pastConditions: draft.pastConditions.filter((_, idx) => idx !== i),
-                    })
-                  }
-                >
-                  <Trash2 className="h-4 w-4" />
-                </Button>
-              </div>
             </div>
           ))}
         </CardContent>
@@ -905,17 +892,6 @@ function Step5({ draft, update }: { draft: IntakeDraft; update: (p: Partial<Inta
                   </SelectContent>
                 </Select>
               </Field>
-              <div className="flex items-end justify-end">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() =>
-                    update({ medications: draft.medications.filter((_, idx) => idx !== i) })
-                  }
-                >
-                  <Trash2 className="h-4 w-4" />
-                </Button>
-              </div>
             </div>
           ))}
         </CardContent>
@@ -992,17 +968,6 @@ function Step5({ draft, update }: { draft: IntakeDraft; update: (p: Partial<Inta
                   </SelectContent>
                 </Select>
               </Field>
-              <div className="flex items-end justify-end">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() =>
-                    update({ allergies: draft.allergies.filter((_, idx) => idx !== i) })
-                  }
-                >
-                  <Trash2 className="h-4 w-4" />
-                </Button>
-              </div>
             </div>
           ))}
         </CardContent>
@@ -1072,17 +1037,6 @@ function Step5({ draft, update }: { draft: IntakeDraft; update: (p: Partial<Inta
                   }}
                 />
               </Field>
-              <div className="flex items-end justify-end">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() =>
-                    update({ familyHistory: draft.familyHistory.filter((_, idx) => idx !== i) })
-                  }
-                >
-                  <Trash2 className="h-4 w-4" />
-                </Button>
-              </div>
             </div>
           ))}
         </CardContent>
