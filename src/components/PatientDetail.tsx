@@ -4,7 +4,6 @@ import { useNavigate } from "@tanstack/react-router";
 import {
   Loader2,
   Pencil,
-  Trash2,
   Archive,
   Calendar,
   MapPin,
@@ -57,7 +56,6 @@ import {
   getPatient,
   searchResources,
   updatePatient,
-  deletePatient,
   displayName,
   sanitizeName,
   sanitizeGiven,
@@ -170,7 +168,6 @@ export function PatientDetail({ patientId }: Props) {
 
   const [tab, setTab] = useState("summary");
   const [editOpen, setEditOpen] = useState(false);
-  const [deleteOpen, setDeleteOpen] = useState(false);
   const [archiveOpen, setArchiveOpen] = useState(false);
 
   // Observations (exclude vital-signs from findings)
@@ -236,19 +233,6 @@ export function PatientDetail({ patientId }: Props) {
       setArchiveOpen(false);
     },
     onError: (e: Error) => toast.error(e.message),
-  });
-
-  const deleteMutation = useMutation({
-    mutationFn: () => deletePatient(patientId),
-    onSuccess: () => {
-      toast.success("Patient deleted");
-      qc.invalidateQueries({ queryKey: ["patients"] });
-      setDeleteOpen(false);
-      navigate({ to: "/" });
-    },
-    onError: (e: Error) => {
-      toast.error(`Delete failed — linked records may still exist. ${e.message}`);
-    },
   });
 
   // Filter Active Conditions: confirmed disease diagnoses only.
@@ -379,10 +363,6 @@ export function PatientDetail({ patientId }: Props) {
                 <Archive className="mr-1.5 h-4 w-4" /> Archive
               </Button>
             )}
-            <Button variant="outline" size="sm" className="text-destructive hover:text-destructive"
-              onClick={() => setDeleteOpen(true)}>
-              <Trash2 className="mr-1.5 h-4 w-4" /> Delete
-            </Button>
           </div>
         </div>
       </DomainCard>
@@ -876,28 +856,6 @@ export function PatientDetail({ patientId }: Props) {
               disabled={archiveMutation.isPending}
             >
               {archiveMutation.isPending ? "Archiving…" : "Archive"}
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
-
-      {/* Delete dialog */}
-      <AlertDialog open={deleteOpen} onOpenChange={setDeleteOpen}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Delete patient?</AlertDialogTitle>
-            <AlertDialogDescription>
-              Sends DELETE /Patient/{p.id}. If the FHIR server rejects due to linked
-              records, the patient stays in place — consider archiving instead.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel disabled={deleteMutation.isPending}>Cancel</AlertDialogCancel>
-            <AlertDialogAction
-              onClick={(e) => { e.preventDefault(); deleteMutation.mutate(); }}
-              disabled={deleteMutation.isPending}
-            >
-              {deleteMutation.isPending ? "Deleting…" : "Delete"}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

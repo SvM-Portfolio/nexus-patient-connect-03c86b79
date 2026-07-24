@@ -142,12 +142,6 @@ export async function updatePatient(p: FhirPatient) {
   return handle(res);
 }
 
-export async function deletePatient(id: string) {
-  const res = await fetch(`${BASE}/Patient/${id}`, { method: "DELETE" });
-  if (res.status === 204 || res.status === 200 || res.status === 202) return null;
-  return handle(res);
-}
-
 export async function searchResources<T = any>(
   resourceType: string,
   params: Record<string, string>,
