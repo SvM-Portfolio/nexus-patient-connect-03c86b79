@@ -56,7 +56,6 @@ import {
   getPatient,
   searchResources,
   updatePatient,
-  deletePatient,
   displayName,
   sanitizeName,
   sanitizeGiven,
