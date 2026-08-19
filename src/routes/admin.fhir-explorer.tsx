@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { FhirExplorer } from "@/components/FhirExplorer";
 import { AdminGuard } from "@/components/AdminGuard";
+import { AdminPageHeader } from "@/components/AdminPageHeader";
 
 export const Route = createFileRoute("/admin/fhir-explorer")({
   head: () => ({
@@ -22,7 +23,16 @@ export const Route = createFileRoute("/admin/fhir-explorer")({
   }),
   component: () => (
     <AdminGuard>
-      <FhirExplorer />
+      <div className="mx-auto max-w-[1600px] px-4 py-6 md:px-6 md:py-8">
+        <AdminPageHeader
+          title="FHIR Patient Explorer"
+          description="Inspect mock patient bundles, count resource types, and export data as JSON, CSV, or XML."
+          tag="System Tool"
+        />
+        <div className="mt-6">
+          <FhirExplorer />
+        </div>
+      </div>
     </AdminGuard>
   ),
 });
