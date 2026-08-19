@@ -17,6 +17,7 @@ import { Route as PatientsNewRouteImport } from './routes/patients.new'
 import { Route as PatientsIdRouteImport } from './routes/patients.$id'
 import { Route as DashboardPhysicianRouteImport } from './routes/dashboard.physician'
 import { Route as DashboardFrontOfficeRouteImport } from './routes/dashboard.front-office'
+import { Route as AdminFhirExplorerRouteImport } from './routes/admin.fhir-explorer'
 import { Route as ApiFhirSplatRouteImport } from './routes/api/fhir.$'
 
 const FhirResourcesRoute = FhirResourcesRouteImport.update({
@@ -59,6 +60,11 @@ const DashboardFrontOfficeRoute = DashboardFrontOfficeRouteImport.update({
   path: '/dashboard/front-office',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminFhirExplorerRoute = AdminFhirExplorerRouteImport.update({
+  id: '/admin/fhir-explorer',
+  path: '/admin/fhir-explorer',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiFhirSplatRoute = ApiFhirSplatRouteImport.update({
   id: '/api/fhir/$',
   path: '/api/fhir/$',
@@ -68,6 +74,7 @@ const ApiFhirSplatRoute = ApiFhirSplatRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/fhir-resources': typeof FhirResourcesRoute
+  '/admin/fhir-explorer': typeof AdminFhirExplorerRoute
   '/dashboard/front-office': typeof DashboardFrontOfficeRoute
   '/dashboard/physician': typeof DashboardPhysicianRoute
   '/patients/$id': typeof PatientsIdRoute
@@ -79,6 +86,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/fhir-resources': typeof FhirResourcesRoute
+  '/admin/fhir-explorer': typeof AdminFhirExplorerRoute
   '/dashboard/front-office': typeof DashboardFrontOfficeRoute
   '/dashboard/physician': typeof DashboardPhysicianRoute
   '/patients/$id': typeof PatientsIdRoute
@@ -91,6 +99,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/fhir-resources': typeof FhirResourcesRoute
+  '/admin/fhir-explorer': typeof AdminFhirExplorerRoute
   '/dashboard/front-office': typeof DashboardFrontOfficeRoute
   '/dashboard/physician': typeof DashboardPhysicianRoute
   '/patients/$id': typeof PatientsIdRoute
@@ -104,6 +113,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/fhir-resources'
+    | '/admin/fhir-explorer'
     | '/dashboard/front-office'
     | '/dashboard/physician'
     | '/patients/$id'
@@ -115,6 +125,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/fhir-resources'
+    | '/admin/fhir-explorer'
     | '/dashboard/front-office'
     | '/dashboard/physician'
     | '/patients/$id'
@@ -126,6 +137,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/fhir-resources'
+    | '/admin/fhir-explorer'
     | '/dashboard/front-office'
     | '/dashboard/physician'
     | '/patients/$id'
@@ -138,6 +150,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   FhirResourcesRoute: typeof FhirResourcesRoute
+  AdminFhirExplorerRoute: typeof AdminFhirExplorerRoute
   DashboardFrontOfficeRoute: typeof DashboardFrontOfficeRoute
   DashboardPhysicianRoute: typeof DashboardPhysicianRoute
   PatientsIdRoute: typeof PatientsIdRoute
@@ -205,6 +218,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardFrontOfficeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/fhir-explorer': {
+      id: '/admin/fhir-explorer'
+      path: '/admin/fhir-explorer'
+      fullPath: '/admin/fhir-explorer'
+      preLoaderRoute: typeof AdminFhirExplorerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/fhir/$': {
       id: '/api/fhir/$'
       path: '/api/fhir/$'
@@ -218,6 +238,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   FhirResourcesRoute: FhirResourcesRoute,
+  AdminFhirExplorerRoute: AdminFhirExplorerRoute,
   DashboardFrontOfficeRoute: DashboardFrontOfficeRoute,
   DashboardPhysicianRoute: DashboardPhysicianRoute,
   PatientsIdRoute: PatientsIdRoute,
