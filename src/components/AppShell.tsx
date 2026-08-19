@@ -5,7 +5,7 @@ import {
   Activity,
   ChevronRight,
   Folder,
-  Database,
+  Wrench,
 } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 import { GlobalSearch } from "./GlobalSearch";
@@ -32,7 +32,7 @@ function useBreadcrumbs() {
 }
 
 export function AppShell({ children }: { children: ReactNode }) {
-  const { dashboardPath } = useActiveRole();
+  const { dashboardPath, isTechnical } = useActiveRole();
   const router = useRouter();
   const crumbs = useBreadcrumbs();
   const isDashboard =
@@ -121,6 +121,12 @@ export function AppShell({ children }: { children: ReactNode }) {
 
           {/* Right */}
           <div className="flex items-center gap-0.5">
+            <span
+              className="mr-1 hidden rounded-full border border-border bg-card px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground sm:inline"
+              title="Synthetic data only — no real patient information"
+            >
+              Demo Mode
+            </span>
             <NotificationsPopover />
             <MessagesPopover />
             <CalendarPopover />
