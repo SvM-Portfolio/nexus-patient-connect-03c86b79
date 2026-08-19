@@ -18,6 +18,7 @@ import { Route as PatientsIdRouteImport } from './routes/patients.$id'
 import { Route as DashboardPhysicianRouteImport } from './routes/dashboard.physician'
 import { Route as DashboardFrontOfficeRouteImport } from './routes/dashboard.front-office'
 import { Route as AdminFhirExplorerRouteImport } from './routes/admin.fhir-explorer'
+import { Route as AdminAuditLogsRouteImport } from './routes/admin.audit-logs'
 import { Route as ApiFhirSplatRouteImport } from './routes/api/fhir.$'
 
 const FhirResourcesRoute = FhirResourcesRouteImport.update({
@@ -65,6 +66,11 @@ const AdminFhirExplorerRoute = AdminFhirExplorerRouteImport.update({
   path: '/admin/fhir-explorer',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminAuditLogsRoute = AdminAuditLogsRouteImport.update({
+  id: '/admin/audit-logs',
+  path: '/admin/audit-logs',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiFhirSplatRoute = ApiFhirSplatRouteImport.update({
   id: '/api/fhir/$',
   path: '/api/fhir/$',
@@ -74,6 +80,7 @@ const ApiFhirSplatRoute = ApiFhirSplatRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/fhir-resources': typeof FhirResourcesRoute
+  '/admin/audit-logs': typeof AdminAuditLogsRoute
   '/admin/fhir-explorer': typeof AdminFhirExplorerRoute
   '/dashboard/front-office': typeof DashboardFrontOfficeRoute
   '/dashboard/physician': typeof DashboardPhysicianRoute
@@ -86,6 +93,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/fhir-resources': typeof FhirResourcesRoute
+  '/admin/audit-logs': typeof AdminAuditLogsRoute
   '/admin/fhir-explorer': typeof AdminFhirExplorerRoute
   '/dashboard/front-office': typeof DashboardFrontOfficeRoute
   '/dashboard/physician': typeof DashboardPhysicianRoute
@@ -99,6 +107,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/fhir-resources': typeof FhirResourcesRoute
+  '/admin/audit-logs': typeof AdminAuditLogsRoute
   '/admin/fhir-explorer': typeof AdminFhirExplorerRoute
   '/dashboard/front-office': typeof DashboardFrontOfficeRoute
   '/dashboard/physician': typeof DashboardPhysicianRoute
@@ -113,6 +122,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/fhir-resources'
+    | '/admin/audit-logs'
     | '/admin/fhir-explorer'
     | '/dashboard/front-office'
     | '/dashboard/physician'
@@ -125,6 +135,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/fhir-resources'
+    | '/admin/audit-logs'
     | '/admin/fhir-explorer'
     | '/dashboard/front-office'
     | '/dashboard/physician'
@@ -137,6 +148,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/fhir-resources'
+    | '/admin/audit-logs'
     | '/admin/fhir-explorer'
     | '/dashboard/front-office'
     | '/dashboard/physician'
@@ -150,6 +162,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   FhirResourcesRoute: typeof FhirResourcesRoute
+  AdminAuditLogsRoute: typeof AdminAuditLogsRoute
   AdminFhirExplorerRoute: typeof AdminFhirExplorerRoute
   DashboardFrontOfficeRoute: typeof DashboardFrontOfficeRoute
   DashboardPhysicianRoute: typeof DashboardPhysicianRoute
@@ -225,6 +238,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminFhirExplorerRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/audit-logs': {
+      id: '/admin/audit-logs'
+      path: '/admin/audit-logs'
+      fullPath: '/admin/audit-logs'
+      preLoaderRoute: typeof AdminAuditLogsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/fhir/$': {
       id: '/api/fhir/$'
       path: '/api/fhir/$'
@@ -238,6 +258,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   FhirResourcesRoute: FhirResourcesRoute,
+  AdminAuditLogsRoute: AdminAuditLogsRoute,
   AdminFhirExplorerRoute: AdminFhirExplorerRoute,
   DashboardFrontOfficeRoute: DashboardFrontOfficeRoute,
   DashboardPhysicianRoute: DashboardPhysicianRoute,
