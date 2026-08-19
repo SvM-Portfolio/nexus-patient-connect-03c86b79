@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as FhirResourcesRouteImport } from './routes/fhir-resources'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PatientsIndexRouteImport } from './routes/patients.index'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as PatientsNewRouteImport } from './routes/patients.new'
 import { Route as PatientsIdRouteImport } from './routes/patients.$id'
 import { Route as DashboardPhysicianRouteImport } from './routes/dashboard.physician'
@@ -31,6 +32,11 @@ const IndexRoute = IndexRouteImport.update({
 const PatientsIndexRoute = PatientsIndexRouteImport.update({
   id: '/patients/',
   path: '/patients/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PatientsNewRoute = PatientsNewRouteImport.update({
@@ -66,6 +72,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/physician': typeof DashboardPhysicianRoute
   '/patients/$id': typeof PatientsIdRoute
   '/patients/new': typeof PatientsNewRoute
+  '/admin/': typeof AdminIndexRoute
   '/patients/': typeof PatientsIndexRoute
   '/api/fhir/$': typeof ApiFhirSplatRoute
 }
@@ -76,6 +83,7 @@ export interface FileRoutesByTo {
   '/dashboard/physician': typeof DashboardPhysicianRoute
   '/patients/$id': typeof PatientsIdRoute
   '/patients/new': typeof PatientsNewRoute
+  '/admin': typeof AdminIndexRoute
   '/patients': typeof PatientsIndexRoute
   '/api/fhir/$': typeof ApiFhirSplatRoute
 }
@@ -87,6 +95,7 @@ export interface FileRoutesById {
   '/dashboard/physician': typeof DashboardPhysicianRoute
   '/patients/$id': typeof PatientsIdRoute
   '/patients/new': typeof PatientsNewRoute
+  '/admin/': typeof AdminIndexRoute
   '/patients/': typeof PatientsIndexRoute
   '/api/fhir/$': typeof ApiFhirSplatRoute
 }
@@ -99,6 +108,7 @@ export interface FileRouteTypes {
     | '/dashboard/physician'
     | '/patients/$id'
     | '/patients/new'
+    | '/admin/'
     | '/patients/'
     | '/api/fhir/$'
   fileRoutesByTo: FileRoutesByTo
@@ -109,6 +119,7 @@ export interface FileRouteTypes {
     | '/dashboard/physician'
     | '/patients/$id'
     | '/patients/new'
+    | '/admin'
     | '/patients'
     | '/api/fhir/$'
   id:
@@ -119,6 +130,7 @@ export interface FileRouteTypes {
     | '/dashboard/physician'
     | '/patients/$id'
     | '/patients/new'
+    | '/admin/'
     | '/patients/'
     | '/api/fhir/$'
   fileRoutesById: FileRoutesById
@@ -130,6 +142,7 @@ export interface RootRouteChildren {
   DashboardPhysicianRoute: typeof DashboardPhysicianRoute
   PatientsIdRoute: typeof PatientsIdRoute
   PatientsNewRoute: typeof PatientsNewRoute
+  AdminIndexRoute: typeof AdminIndexRoute
   PatientsIndexRoute: typeof PatientsIndexRoute
   ApiFhirSplatRoute: typeof ApiFhirSplatRoute
 }
@@ -155,6 +168,13 @@ declare module '@tanstack/react-router' {
       path: '/patients'
       fullPath: '/patients/'
       preLoaderRoute: typeof PatientsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/': {
+      id: '/admin/'
+      path: '/admin'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/patients/new': {
@@ -202,6 +222,7 @@ const rootRouteChildren: RootRouteChildren = {
   DashboardPhysicianRoute: DashboardPhysicianRoute,
   PatientsIdRoute: PatientsIdRoute,
   PatientsNewRoute: PatientsNewRoute,
+  AdminIndexRoute: AdminIndexRoute,
   PatientsIndexRoute: PatientsIndexRoute,
   ApiFhirSplatRoute: ApiFhirSplatRoute,
 }
