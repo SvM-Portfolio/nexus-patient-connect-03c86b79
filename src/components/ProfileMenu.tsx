@@ -40,19 +40,45 @@ export function ProfileMenu() {
         <DropdownMenuLabel className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
           Switch workspace
         </DropdownMenuLabel>
-        {roles.map((r) => (
-          <DropdownMenuItem
-            key={r.id}
-            onClick={() => {
-              setRole(r.id);
-              navigate({ to: r.path });
-            }}
-            className="flex items-center justify-between"
-          >
-            <span>{r.label}</span>
-            {role === r.id && <Check className="h-3.5 w-3.5 text-primary" />}
-          </DropdownMenuItem>
-        ))}
+        {roles
+          .filter((r) => r.kind === "clinical")
+          .map((r) => (
+            <DropdownMenuItem
+              key={r.id}
+              onClick={() => {
+                setRole(r.id);
+                navigate({ to: r.path });
+              }}
+              className="flex items-center justify-between"
+            >
+              <span className="flex flex-col">
+                <span>{r.label}</span>
+                {r.note && (
+                  <span className="text-[10px] text-muted-foreground">{r.note}</span>
+                )}
+              </span>
+              {role === r.id && <Check className="h-3.5 w-3.5 text-primary" />}
+            </DropdownMenuItem>
+          ))}
+        <DropdownMenuSeparator />
+        <DropdownMenuLabel className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+          Technical roles
+        </DropdownMenuLabel>
+        {roles
+          .filter((r) => r.kind === "technical")
+          .map((r) => (
+            <DropdownMenuItem
+              key={r.id}
+              onClick={() => {
+                setRole(r.id);
+                navigate({ to: r.path });
+              }}
+              className="flex items-center justify-between"
+            >
+              <span>{r.label}</span>
+              {role === r.id && <Check className="h-3.5 w-3.5 text-primary" />}
+            </DropdownMenuItem>
+          ))}
         <DropdownMenuSeparator />
         <DropdownMenuItem disabled>Profile settings</DropdownMenuItem>
         <DropdownMenuItem disabled>Sign out</DropdownMenuItem>
