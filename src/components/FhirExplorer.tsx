@@ -159,7 +159,7 @@ function buildBundle(p: MockPatient) {
 
 const PAGE_SIZE = 6;
 
-export function FhirExplorer() {
+export function FhirExplorer({ showHeader = true }: { showHeader?: boolean }) {
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(0);
   const [selectedId, setSelectedId] = useState<string | null>(MOCK_PATIENTS[0].id);
@@ -188,15 +188,17 @@ export function FhirExplorer() {
 
   return (
     <div className="mx-auto max-w-[1600px] px-4 py-6 md:px-6 md:py-8">
-      <div className="mb-6">
-        <h1 className="flex items-center gap-2 text-2xl font-semibold tracking-tight">
-          <Database className="h-6 w-6 text-primary" />
-          FHIR Patient Explorer
-        </h1>
-        <p className="mt-1 text-sm text-muted-foreground">
-          Browse mock patients, inspect their FHIR bundle, and export in JSON, CSV, or XML.
-        </p>
-      </div>
+      {showHeader && (
+        <div className="mb-6">
+          <h1 className="flex items-center gap-2 text-2xl font-semibold tracking-tight">
+            <Database className="h-6 w-6 text-primary" />
+            FHIR Patient Explorer
+          </h1>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Browse mock patients, inspect their FHIR bundle, and export in JSON, CSV, or XML.
+          </p>
+        </div>
+      )}
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
         {/* Left panel */}
