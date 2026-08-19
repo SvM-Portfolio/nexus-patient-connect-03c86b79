@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { TodaysSummary } from "@/components/dashboard/physician/TodaysSummary";
 import { MessagesPanel } from "@/components/dashboard/physician/MessagesPanel";
 import { LaboratoryOrders } from "@/components/dashboard/physician/LaboratoryOrders";
@@ -32,6 +33,7 @@ export const Route = createFileRoute("/dashboard/physician")({
 });
 
 function PhysicianDashboard() {
+  const greeting = useTimeOfDay();
   return (
     <div className="mx-auto max-w-[1600px] px-4 py-6 md:px-6 md:py-8">
       <div className="mb-6 flex items-end justify-between gap-4">
