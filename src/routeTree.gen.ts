@@ -19,6 +19,7 @@ import { Route as DashboardPhysicianRouteImport } from './routes/dashboard.physi
 import { Route as DashboardFrontOfficeRouteImport } from './routes/dashboard.front-office'
 import { Route as AdminIntegrationsRouteImport } from './routes/admin.integrations'
 import { Route as AdminFhirExplorerRouteImport } from './routes/admin.fhir-explorer'
+import { Route as AdminDeveloperRouteImport } from './routes/admin.developer'
 import { Route as AdminDataExportRouteImport } from './routes/admin.data-export'
 import { Route as AdminAuditLogsRouteImport } from './routes/admin.audit-logs'
 import { Route as ApiFhirSplatRouteImport } from './routes/api/fhir.$'
@@ -73,6 +74,11 @@ const AdminFhirExplorerRoute = AdminFhirExplorerRouteImport.update({
   path: '/admin/fhir-explorer',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminDeveloperRoute = AdminDeveloperRouteImport.update({
+  id: '/admin/developer',
+  path: '/admin/developer',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminDataExportRoute = AdminDataExportRouteImport.update({
   id: '/admin/data-export',
   path: '/admin/data-export',
@@ -94,6 +100,7 @@ export interface FileRoutesByFullPath {
   '/fhir-resources': typeof FhirResourcesRoute
   '/admin/audit-logs': typeof AdminAuditLogsRoute
   '/admin/data-export': typeof AdminDataExportRoute
+  '/admin/developer': typeof AdminDeveloperRoute
   '/admin/fhir-explorer': typeof AdminFhirExplorerRoute
   '/admin/integrations': typeof AdminIntegrationsRoute
   '/dashboard/front-office': typeof DashboardFrontOfficeRoute
@@ -109,6 +116,7 @@ export interface FileRoutesByTo {
   '/fhir-resources': typeof FhirResourcesRoute
   '/admin/audit-logs': typeof AdminAuditLogsRoute
   '/admin/data-export': typeof AdminDataExportRoute
+  '/admin/developer': typeof AdminDeveloperRoute
   '/admin/fhir-explorer': typeof AdminFhirExplorerRoute
   '/admin/integrations': typeof AdminIntegrationsRoute
   '/dashboard/front-office': typeof DashboardFrontOfficeRoute
@@ -125,6 +133,7 @@ export interface FileRoutesById {
   '/fhir-resources': typeof FhirResourcesRoute
   '/admin/audit-logs': typeof AdminAuditLogsRoute
   '/admin/data-export': typeof AdminDataExportRoute
+  '/admin/developer': typeof AdminDeveloperRoute
   '/admin/fhir-explorer': typeof AdminFhirExplorerRoute
   '/admin/integrations': typeof AdminIntegrationsRoute
   '/dashboard/front-office': typeof DashboardFrontOfficeRoute
@@ -142,6 +151,7 @@ export interface FileRouteTypes {
     | '/fhir-resources'
     | '/admin/audit-logs'
     | '/admin/data-export'
+    | '/admin/developer'
     | '/admin/fhir-explorer'
     | '/admin/integrations'
     | '/dashboard/front-office'
@@ -157,6 +167,7 @@ export interface FileRouteTypes {
     | '/fhir-resources'
     | '/admin/audit-logs'
     | '/admin/data-export'
+    | '/admin/developer'
     | '/admin/fhir-explorer'
     | '/admin/integrations'
     | '/dashboard/front-office'
@@ -172,6 +183,7 @@ export interface FileRouteTypes {
     | '/fhir-resources'
     | '/admin/audit-logs'
     | '/admin/data-export'
+    | '/admin/developer'
     | '/admin/fhir-explorer'
     | '/admin/integrations'
     | '/dashboard/front-office'
@@ -188,6 +200,7 @@ export interface RootRouteChildren {
   FhirResourcesRoute: typeof FhirResourcesRoute
   AdminAuditLogsRoute: typeof AdminAuditLogsRoute
   AdminDataExportRoute: typeof AdminDataExportRoute
+  AdminDeveloperRoute: typeof AdminDeveloperRoute
   AdminFhirExplorerRoute: typeof AdminFhirExplorerRoute
   AdminIntegrationsRoute: typeof AdminIntegrationsRoute
   DashboardFrontOfficeRoute: typeof DashboardFrontOfficeRoute
@@ -271,6 +284,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminFhirExplorerRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/developer': {
+      id: '/admin/developer'
+      path: '/admin/developer'
+      fullPath: '/admin/developer'
+      preLoaderRoute: typeof AdminDeveloperRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/data-export': {
       id: '/admin/data-export'
       path: '/admin/data-export'
@@ -300,6 +320,7 @@ const rootRouteChildren: RootRouteChildren = {
   FhirResourcesRoute: FhirResourcesRoute,
   AdminAuditLogsRoute: AdminAuditLogsRoute,
   AdminDataExportRoute: AdminDataExportRoute,
+  AdminDeveloperRoute: AdminDeveloperRoute,
   AdminFhirExplorerRoute: AdminFhirExplorerRoute,
   AdminIntegrationsRoute: AdminIntegrationsRoute,
   DashboardFrontOfficeRoute: DashboardFrontOfficeRoute,
