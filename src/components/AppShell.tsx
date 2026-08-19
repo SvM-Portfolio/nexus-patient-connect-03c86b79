@@ -5,7 +5,7 @@ import {
   Activity,
   ChevronRight,
   Folder,
-  Database,
+  Wrench,
 } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 import { GlobalSearch } from "./GlobalSearch";
@@ -32,7 +32,7 @@ function useBreadcrumbs() {
 }
 
 export function AppShell({ children }: { children: ReactNode }) {
-  const { dashboardPath } = useActiveRole();
+  const { dashboardPath, isTechnical } = useActiveRole();
   const router = useRouter();
   const crumbs = useBreadcrumbs();
   const isDashboard =
@@ -84,17 +84,19 @@ export function AppShell({ children }: { children: ReactNode }) {
                 <span className="hidden sm:inline">Patient Records</span>
               </Link>
             </Button>
-            <Button
-              asChild
-              variant="ghost"
-              className="h-8 gap-1.5 px-2 text-sm font-medium text-muted-foreground hover:text-foreground"
-              title="FHIR Resources"
-            >
-              <Link to="/fhir-resources">
-                <Database className="h-4 w-4" />
-                <span className="hidden sm:inline">FHIR Resources</span>
-              </Link>
-            </Button>
+            {isTechnical && (
+              <Button
+                asChild
+                variant="ghost"
+                className="h-8 gap-1.5 px-2 text-sm font-medium text-muted-foreground hover:text-foreground"
+                title="Admin System Tools"
+              >
+                <Link to="/admin">
+                  <Wrench className="h-4 w-4" />
+                  <span className="hidden sm:inline">Admin</span>
+                </Link>
+              </Button>
+            )}
             {!isDashboard && crumbs.length > 0 && (
               <nav
                 aria-label="Breadcrumb"
@@ -119,6 +121,12 @@ export function AppShell({ children }: { children: ReactNode }) {
 
           {/* Right */}
           <div className="flex items-center gap-0.5">
+            <span
+              className="mr-1 hidden rounded-full border border-border bg-card px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground sm:inline"
+              title="Synthetic data only — no real patient information"
+            >
+              Demo Mode
+            </span>
             <NotificationsPopover />
             <MessagesPopover />
             <CalendarPopover />

@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { TodaysSummary } from "@/components/dashboard/physician/TodaysSummary";
 import { MessagesPanel } from "@/components/dashboard/physician/MessagesPanel";
 import { LaboratoryOrders } from "@/components/dashboard/physician/LaboratoryOrders";
@@ -32,12 +33,13 @@ export const Route = createFileRoute("/dashboard/physician")({
 });
 
 function PhysicianDashboard() {
+  const greeting = useTimeOfDay();
   return (
     <div className="mx-auto max-w-[1600px] px-4 py-6 md:px-6 md:py-8">
       <div className="mb-6 flex items-end justify-between gap-4">
         <div>
           <h1 className="text-2xl font-semibold tracking-tight">
-            Good {timeOfDay()}, Doctor
+            Good {greeting}, Doctor
           </h1>
           <p className="mt-1 text-sm text-muted-foreground">
             Here's your clinical command center for {new Date().toLocaleDateString(undefined, {
@@ -80,9 +82,11 @@ function PhysicianDashboard() {
   );
 }
 
-function timeOfDay() {
-  const h = new Date().getHours();
-  if (h < 12) return "morning";
-  if (h < 18) return "afternoon";
-  return "evening";
+function useTimeOfDay() {
+  const [t, setT] = useState("day");
+  useEffect(() => {
+    const h = new Date().getHours();
+    setT(h < 12 ? "morning" : h < 18 ? "afternoon" : "evening");
+  }, []);
+  return t;
 }
