@@ -17,6 +17,7 @@ import { Route as PatientsNewRouteImport } from './routes/patients.new'
 import { Route as PatientsIdRouteImport } from './routes/patients.$id'
 import { Route as DashboardPhysicianRouteImport } from './routes/dashboard.physician'
 import { Route as DashboardFrontOfficeRouteImport } from './routes/dashboard.front-office'
+import { Route as AdminIntegrationsRouteImport } from './routes/admin.integrations'
 import { Route as AdminFhirExplorerRouteImport } from './routes/admin.fhir-explorer'
 import { Route as AdminDataExportRouteImport } from './routes/admin.data-export'
 import { Route as AdminAuditLogsRouteImport } from './routes/admin.audit-logs'
@@ -62,6 +63,11 @@ const DashboardFrontOfficeRoute = DashboardFrontOfficeRouteImport.update({
   path: '/dashboard/front-office',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminIntegrationsRoute = AdminIntegrationsRouteImport.update({
+  id: '/admin/integrations',
+  path: '/admin/integrations',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminFhirExplorerRoute = AdminFhirExplorerRouteImport.update({
   id: '/admin/fhir-explorer',
   path: '/admin/fhir-explorer',
@@ -89,6 +95,7 @@ export interface FileRoutesByFullPath {
   '/admin/audit-logs': typeof AdminAuditLogsRoute
   '/admin/data-export': typeof AdminDataExportRoute
   '/admin/fhir-explorer': typeof AdminFhirExplorerRoute
+  '/admin/integrations': typeof AdminIntegrationsRoute
   '/dashboard/front-office': typeof DashboardFrontOfficeRoute
   '/dashboard/physician': typeof DashboardPhysicianRoute
   '/patients/$id': typeof PatientsIdRoute
@@ -103,6 +110,7 @@ export interface FileRoutesByTo {
   '/admin/audit-logs': typeof AdminAuditLogsRoute
   '/admin/data-export': typeof AdminDataExportRoute
   '/admin/fhir-explorer': typeof AdminFhirExplorerRoute
+  '/admin/integrations': typeof AdminIntegrationsRoute
   '/dashboard/front-office': typeof DashboardFrontOfficeRoute
   '/dashboard/physician': typeof DashboardPhysicianRoute
   '/patients/$id': typeof PatientsIdRoute
@@ -118,6 +126,7 @@ export interface FileRoutesById {
   '/admin/audit-logs': typeof AdminAuditLogsRoute
   '/admin/data-export': typeof AdminDataExportRoute
   '/admin/fhir-explorer': typeof AdminFhirExplorerRoute
+  '/admin/integrations': typeof AdminIntegrationsRoute
   '/dashboard/front-office': typeof DashboardFrontOfficeRoute
   '/dashboard/physician': typeof DashboardPhysicianRoute
   '/patients/$id': typeof PatientsIdRoute
@@ -134,6 +143,7 @@ export interface FileRouteTypes {
     | '/admin/audit-logs'
     | '/admin/data-export'
     | '/admin/fhir-explorer'
+    | '/admin/integrations'
     | '/dashboard/front-office'
     | '/dashboard/physician'
     | '/patients/$id'
@@ -148,6 +158,7 @@ export interface FileRouteTypes {
     | '/admin/audit-logs'
     | '/admin/data-export'
     | '/admin/fhir-explorer'
+    | '/admin/integrations'
     | '/dashboard/front-office'
     | '/dashboard/physician'
     | '/patients/$id'
@@ -162,6 +173,7 @@ export interface FileRouteTypes {
     | '/admin/audit-logs'
     | '/admin/data-export'
     | '/admin/fhir-explorer'
+    | '/admin/integrations'
     | '/dashboard/front-office'
     | '/dashboard/physician'
     | '/patients/$id'
@@ -177,6 +189,7 @@ export interface RootRouteChildren {
   AdminAuditLogsRoute: typeof AdminAuditLogsRoute
   AdminDataExportRoute: typeof AdminDataExportRoute
   AdminFhirExplorerRoute: typeof AdminFhirExplorerRoute
+  AdminIntegrationsRoute: typeof AdminIntegrationsRoute
   DashboardFrontOfficeRoute: typeof DashboardFrontOfficeRoute
   DashboardPhysicianRoute: typeof DashboardPhysicianRoute
   PatientsIdRoute: typeof PatientsIdRoute
@@ -244,6 +257,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardFrontOfficeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/integrations': {
+      id: '/admin/integrations'
+      path: '/admin/integrations'
+      fullPath: '/admin/integrations'
+      preLoaderRoute: typeof AdminIntegrationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/fhir-explorer': {
       id: '/admin/fhir-explorer'
       path: '/admin/fhir-explorer'
@@ -281,6 +301,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminAuditLogsRoute: AdminAuditLogsRoute,
   AdminDataExportRoute: AdminDataExportRoute,
   AdminFhirExplorerRoute: AdminFhirExplorerRoute,
+  AdminIntegrationsRoute: AdminIntegrationsRoute,
   DashboardFrontOfficeRoute: DashboardFrontOfficeRoute,
   DashboardPhysicianRoute: DashboardPhysicianRoute,
   PatientsIdRoute: PatientsIdRoute,
