@@ -52,8 +52,9 @@ export function AppShell({ children }: { children: ReactNode }) {
           {/* Left */}
           <div className="flex items-center gap-2">
             <Link
-              to={dashboardPath}
+              to="/"
               className="flex items-center gap-2 rounded-lg px-1 py-1 transition-colors hover:bg-accent/50"
+              title="Back to Nexus Pro demo home"
             >
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-accent-info text-primary-foreground shadow-sm">
                 <Activity className="h-4 w-4" />
