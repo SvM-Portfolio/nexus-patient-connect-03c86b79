@@ -11,8 +11,6 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as FhirResourcesRouteImport } from './routes/fhir-resources'
-import { Route as McpRouteImport } from './routes/mcp'
-import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminAuditLogsRouteImport } from './routes/admin.audit-logs'
 import { Route as AdminDataExportRouteImport } from './routes/admin.data-export'
@@ -36,17 +34,6 @@ const FhirResourcesRoute = FhirResourcesRouteImport.update({
   path: '/fhir-resources',
   getParentRoute: () => rootRouteImport,
 } as any)
-const McpRoute = McpRouteImport.update({
-  id: '/mcp',
-  path: '/mcp',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const Char91DotwellKnownChar93OauthProtectedResourceRoute =
-  Char91DotwellKnownChar93OauthProtectedResourceRouteImport.update({
-    id: '/.well-known/oauth-protected-resource',
-    path: '/.well-known/oauth-protected-resource',
-    getParentRoute: () => rootRouteImport,
-  } as any)
 const AdminIndexRoute = AdminIndexRouteImport.update({
   id: '/admin/',
   path: '/admin/',
@@ -111,8 +98,6 @@ const ApiFhirSplatRoute = ApiFhirSplatRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/fhir-resources': typeof FhirResourcesRoute
-  '/mcp': typeof McpRoute
-  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/admin/audit-logs': typeof AdminAuditLogsRoute
   '/admin/data-export': typeof AdminDataExportRoute
   '/admin/developer': typeof AdminDeveloperRoute
@@ -129,8 +114,6 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/fhir-resources': typeof FhirResourcesRoute
-  '/mcp': typeof McpRoute
-  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/admin/audit-logs': typeof AdminAuditLogsRoute
   '/admin/data-export': typeof AdminDataExportRoute
   '/admin/developer': typeof AdminDeveloperRoute
@@ -148,8 +131,6 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/fhir-resources': typeof FhirResourcesRoute
-  '/mcp': typeof McpRoute
-  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/admin/audit-logs': typeof AdminAuditLogsRoute
   '/admin/data-export': typeof AdminDataExportRoute
   '/admin/developer': typeof AdminDeveloperRoute
@@ -168,8 +149,6 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/fhir-resources'
-    | '/mcp'
-    | '/.well-known/oauth-protected-resource'
     | '/admin/audit-logs'
     | '/admin/data-export'
     | '/admin/developer'
@@ -186,8 +165,6 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/fhir-resources'
-    | '/mcp'
-    | '/.well-known/oauth-protected-resource'
     | '/admin/audit-logs'
     | '/admin/data-export'
     | '/admin/developer'
@@ -204,8 +181,6 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/fhir-resources'
-    | '/mcp'
-    | '/.well-known/oauth-protected-resource'
     | '/admin/audit-logs'
     | '/admin/data-export'
     | '/admin/developer'
@@ -223,8 +198,6 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   FhirResourcesRoute: typeof FhirResourcesRoute
-  McpRoute: typeof McpRoute
-  Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   AdminAuditLogsRoute: typeof AdminAuditLogsRoute
   AdminDataExportRoute: typeof AdminDataExportRoute
   AdminDeveloperRoute: typeof AdminDeveloperRoute
@@ -253,20 +226,6 @@ declare module '@tanstack/react-router' {
       path: '/fhir-resources'
       fullPath: '/fhir-resources'
       preLoaderRoute: typeof FhirResourcesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/mcp': {
-      id: '/mcp'
-      path: '/mcp'
-      fullPath: '/mcp'
-      preLoaderRoute: typeof McpRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/.well-known/oauth-protected-resource': {
-      id: '/.well-known/oauth-protected-resource'
-      path: '/.well-known/oauth-protected-resource'
-      fullPath: '/.well-known/oauth-protected-resource'
-      preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/': {
@@ -359,9 +318,6 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   FhirResourcesRoute: FhirResourcesRoute,
-  McpRoute: McpRoute,
-  Char91DotwellKnownChar93OauthProtectedResourceRoute:
-    Char91DotwellKnownChar93OauthProtectedResourceRoute,
   AdminAuditLogsRoute: AdminAuditLogsRoute,
   AdminDataExportRoute: AdminDataExportRoute,
   AdminDeveloperRoute: AdminDeveloperRoute,
