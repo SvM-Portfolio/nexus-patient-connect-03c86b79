@@ -9,34 +9,29 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as FhirResourcesRouteImport } from './routes/fhir-resources'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as PatientsIndexRouteImport } from './routes/patients.index'
+import { Route as FhirResourcesRouteImport } from './routes/fhir-resources'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
-import { Route as PatientsNewRouteImport } from './routes/patients.new'
-import { Route as PatientsIdRouteImport } from './routes/patients.$id'
-import { Route as DashboardPhysicianRouteImport } from './routes/dashboard.physician'
-import { Route as DashboardFrontOfficeRouteImport } from './routes/dashboard.front-office'
-import { Route as AdminIntegrationsRouteImport } from './routes/admin.integrations'
-import { Route as AdminFhirExplorerRouteImport } from './routes/admin.fhir-explorer'
-import { Route as AdminDeveloperRouteImport } from './routes/admin.developer'
-import { Route as AdminDataExportRouteImport } from './routes/admin.data-export'
 import { Route as AdminAuditLogsRouteImport } from './routes/admin.audit-logs'
+import { Route as AdminDataExportRouteImport } from './routes/admin.data-export'
+import { Route as AdminDeveloperRouteImport } from './routes/admin.developer'
+import { Route as AdminFhirExplorerRouteImport } from './routes/admin.fhir-explorer'
+import { Route as AdminIntegrationsRouteImport } from './routes/admin.integrations'
+import { Route as DashboardFrontOfficeRouteImport } from './routes/dashboard.front-office'
+import { Route as DashboardPhysicianRouteImport } from './routes/dashboard.physician'
+import { Route as PatientsIndexRouteImport } from './routes/patients.index'
+import { Route as PatientsIdRouteImport } from './routes/patients.$id'
+import { Route as PatientsNewRouteImport } from './routes/patients.new'
 import { Route as ApiFhirSplatRouteImport } from './routes/api/fhir.$'
 
-const FhirResourcesRoute = FhirResourcesRouteImport.update({
-  id: '/fhir-resources',
-  path: '/fhir-resources',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PatientsIndexRoute = PatientsIndexRouteImport.update({
-  id: '/patients/',
-  path: '/patients/',
+const FhirResourcesRoute = FhirResourcesRouteImport.update({
+  id: '/fhir-resources',
+  path: '/fhir-resources',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminIndexRoute = AdminIndexRouteImport.update({
@@ -44,39 +39,9 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
   path: '/admin/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PatientsNewRoute = PatientsNewRouteImport.update({
-  id: '/patients/new',
-  path: '/patients/new',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PatientsIdRoute = PatientsIdRouteImport.update({
-  id: '/patients/$id',
-  path: '/patients/$id',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DashboardPhysicianRoute = DashboardPhysicianRouteImport.update({
-  id: '/dashboard/physician',
-  path: '/dashboard/physician',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DashboardFrontOfficeRoute = DashboardFrontOfficeRouteImport.update({
-  id: '/dashboard/front-office',
-  path: '/dashboard/front-office',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdminIntegrationsRoute = AdminIntegrationsRouteImport.update({
-  id: '/admin/integrations',
-  path: '/admin/integrations',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdminFhirExplorerRoute = AdminFhirExplorerRouteImport.update({
-  id: '/admin/fhir-explorer',
-  path: '/admin/fhir-explorer',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdminDeveloperRoute = AdminDeveloperRouteImport.update({
-  id: '/admin/developer',
-  path: '/admin/developer',
+const AdminAuditLogsRoute = AdminAuditLogsRouteImport.update({
+  id: '/admin/audit-logs',
+  path: '/admin/audit-logs',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminDataExportRoute = AdminDataExportRouteImport.update({
@@ -84,9 +49,44 @@ const AdminDataExportRoute = AdminDataExportRouteImport.update({
   path: '/admin/data-export',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AdminAuditLogsRoute = AdminAuditLogsRouteImport.update({
-  id: '/admin/audit-logs',
-  path: '/admin/audit-logs',
+const AdminDeveloperRoute = AdminDeveloperRouteImport.update({
+  id: '/admin/developer',
+  path: '/admin/developer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminFhirExplorerRoute = AdminFhirExplorerRouteImport.update({
+  id: '/admin/fhir-explorer',
+  path: '/admin/fhir-explorer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminIntegrationsRoute = AdminIntegrationsRouteImport.update({
+  id: '/admin/integrations',
+  path: '/admin/integrations',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardFrontOfficeRoute = DashboardFrontOfficeRouteImport.update({
+  id: '/dashboard/front-office',
+  path: '/dashboard/front-office',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardPhysicianRoute = DashboardPhysicianRouteImport.update({
+  id: '/dashboard/physician',
+  path: '/dashboard/physician',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PatientsIndexRoute = PatientsIndexRouteImport.update({
+  id: '/patients/',
+  path: '/patients/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PatientsIdRoute = PatientsIdRouteImport.update({
+  id: '/patients/$id',
+  path: '/patients/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PatientsNewRoute = PatientsNewRouteImport.update({
+  id: '/patients/new',
+  path: '/patients/new',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiFhirSplatRoute = ApiFhirSplatRouteImport.update({
@@ -214,13 +214,6 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/fhir-resources': {
-      id: '/fhir-resources'
-      path: '/fhir-resources'
-      fullPath: '/fhir-resources'
-      preLoaderRoute: typeof FhirResourcesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/': {
       id: '/'
       path: '/'
@@ -228,11 +221,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/patients/': {
-      id: '/patients/'
-      path: '/patients'
-      fullPath: '/patients/'
-      preLoaderRoute: typeof PatientsIndexRouteImport
+    '/fhir-resources': {
+      id: '/fhir-resources'
+      path: '/fhir-resources'
+      fullPath: '/fhir-resources'
+      preLoaderRoute: typeof FhirResourcesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/': {
@@ -242,53 +235,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/patients/new': {
-      id: '/patients/new'
-      path: '/patients/new'
-      fullPath: '/patients/new'
-      preLoaderRoute: typeof PatientsNewRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/patients/$id': {
-      id: '/patients/$id'
-      path: '/patients/$id'
-      fullPath: '/patients/$id'
-      preLoaderRoute: typeof PatientsIdRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/dashboard/physician': {
-      id: '/dashboard/physician'
-      path: '/dashboard/physician'
-      fullPath: '/dashboard/physician'
-      preLoaderRoute: typeof DashboardPhysicianRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/dashboard/front-office': {
-      id: '/dashboard/front-office'
-      path: '/dashboard/front-office'
-      fullPath: '/dashboard/front-office'
-      preLoaderRoute: typeof DashboardFrontOfficeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/admin/integrations': {
-      id: '/admin/integrations'
-      path: '/admin/integrations'
-      fullPath: '/admin/integrations'
-      preLoaderRoute: typeof AdminIntegrationsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/admin/fhir-explorer': {
-      id: '/admin/fhir-explorer'
-      path: '/admin/fhir-explorer'
-      fullPath: '/admin/fhir-explorer'
-      preLoaderRoute: typeof AdminFhirExplorerRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/admin/developer': {
-      id: '/admin/developer'
-      path: '/admin/developer'
-      fullPath: '/admin/developer'
-      preLoaderRoute: typeof AdminDeveloperRouteImport
+    '/admin/audit-logs': {
+      id: '/admin/audit-logs'
+      path: '/admin/audit-logs'
+      fullPath: '/admin/audit-logs'
+      preLoaderRoute: typeof AdminAuditLogsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/data-export': {
@@ -298,11 +249,60 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminDataExportRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin/audit-logs': {
-      id: '/admin/audit-logs'
-      path: '/admin/audit-logs'
-      fullPath: '/admin/audit-logs'
-      preLoaderRoute: typeof AdminAuditLogsRouteImport
+    '/admin/developer': {
+      id: '/admin/developer'
+      path: '/admin/developer'
+      fullPath: '/admin/developer'
+      preLoaderRoute: typeof AdminDeveloperRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/fhir-explorer': {
+      id: '/admin/fhir-explorer'
+      path: '/admin/fhir-explorer'
+      fullPath: '/admin/fhir-explorer'
+      preLoaderRoute: typeof AdminFhirExplorerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/integrations': {
+      id: '/admin/integrations'
+      path: '/admin/integrations'
+      fullPath: '/admin/integrations'
+      preLoaderRoute: typeof AdminIntegrationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/front-office': {
+      id: '/dashboard/front-office'
+      path: '/dashboard/front-office'
+      fullPath: '/dashboard/front-office'
+      preLoaderRoute: typeof DashboardFrontOfficeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/physician': {
+      id: '/dashboard/physician'
+      path: '/dashboard/physician'
+      fullPath: '/dashboard/physician'
+      preLoaderRoute: typeof DashboardPhysicianRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/patients/': {
+      id: '/patients/'
+      path: '/patients'
+      fullPath: '/patients/'
+      preLoaderRoute: typeof PatientsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/patients/$id': {
+      id: '/patients/$id'
+      path: '/patients/$id'
+      fullPath: '/patients/$id'
+      preLoaderRoute: typeof PatientsIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/patients/new': {
+      id: '/patients/new'
+      path: '/patients/new'
+      fullPath: '/patients/new'
+      preLoaderRoute: typeof PatientsNewRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/fhir/$': {
