@@ -87,19 +87,6 @@ export function AppShell({ children }: { children: ReactNode }) {
                   <span className="hidden sm:inline">Patient Records</span>
                 </Link>
               </Button>
-              {isTechnical && (
-                <Button
-                  asChild
-                  variant="ghost"
-                  className="h-8 gap-1.5 px-2 text-sm font-medium text-muted-foreground hover:text-foreground"
-                  title="Admin System Tools"
-                >
-                  <Link to="/admin">
-                    <Wrench className="h-4 w-4" />
-                    <span className="hidden sm:inline">Admin</span>
-                  </Link>
-                </Button>
-              )}
               {!isDashboard && crumbs.length > 0 && (
                 <nav
                   aria-label="Breadcrumb"
