@@ -1,4 +1,7 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useState } from "react";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { useActiveRole, ROLES } from "@/hooks/useActiveRole";
 import { Activity, ShieldAlert, ArrowRight, Database, Stethoscope } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GlassCard } from "@/components/GlassCard";
@@ -29,6 +32,9 @@ export const Route = createFileRoute("/")({
 });
 
 function Landing() {
+  const [open, setOpen] = useState(false);
+  const { setRole } = useActiveRole();
+  const navigate = useNavigate();
   return (
     <div className="mx-auto max-w-5xl px-4 py-16 md:px-8">
       <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
@@ -48,11 +54,36 @@ function Landing() {
       </p>
 
       <div className="mt-8 flex flex-wrap gap-3">
-        <Button asChild size="lg">
-          <Link to="/dashboard/physician">
-            Explore Demo <ArrowRight className="ml-2 h-4 w-4" />
-          </Link>
+        <Button size="lg" onClick={() => setOpen(true)}>
+          Explore Demo <ArrowRight className="ml-2 h-4 w-4" />
         </Button>
+        <Dialog open={open} onOpenChange={setOpen}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Choose a profile</DialogTitle>
+              <DialogDescription>Which demo profile would you like to sign in as?</DialogDescription>
+            </DialogHeader>
+            <div className="grid gap-2">
+              {ROLES.map((r) => (
+                <Button
+                  key={r.id}
+                  variant="outline"
+                  className="h-auto justify-between py-3"
+                  onClick={() => {
+                    setRole(r.id);
+                    setOpen(false);
+                    navigate({ to: r.path });
+                  }}
+                >
+                  <span className="font-medium">{r.label}</span>
+                  <span className="text-xs text-muted-foreground">
+                    {r.note ?? (r.kind === "technical" ? "Technical" : "Clinical")}
+                  </span>
+                </Button>
+              ))}
+            </div>
+          </DialogContent>
+        </Dialog>
         <Button asChild size="lg" variant="outline">
           <a href="#learn-more">Learn More</a>
         </Button>
